@@ -95,4 +95,3 @@ st.dataframe(pillars_data, use_container_width=True)
 st.markdown("---")
 
 st.success("Version 2 Live — Your system is evolving.")
-```

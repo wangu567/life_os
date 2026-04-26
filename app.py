@@ -13,37 +13,39 @@ st.set_page_config(
     page_icon="⚡",
 )
 
-# ── CSS: Dark command-center aesthetic ────────────────────────────────────────
+# ── CSS: Warm light theme — navy page, cream cards, strong contrast ───────────
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
 /* ── Global Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body, [class*="css"] {
-    font-family: 'Space Grotesk', sans-serif;
-    background-color: #080a0f;
-    color: #c8d0e0;
+/* ── Page background: deep navy-slate ── */
+html, body, [class*="css"], .stApp {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #1b2340 !important;
+    color: #1e2a3a !important;
 }
 
 /* ── Main container ── */
 .main .block-container {
     padding: 2rem 2.5rem 4rem;
     max-width: 1400px;
+    background-color: #1b2340 !important;
 }
 
 /* ── Hide Streamlit chrome ── */
 #MainMenu, footer, header { visibility: hidden; }
 .stDeployButton { display: none; }
 
-/* ── Hero header ── */
+/* ── Hero header — sits on navy, white text ── */
 .hero-header {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     padding: 0 0 2.5rem;
-    border-bottom: 1px solid #1a2030;
+    border-bottom: 2px solid rgba(255,255,255,0.08);
     margin-bottom: 2.5rem;
     animation: fadeIn 0.6s ease;
 }
@@ -52,44 +54,43 @@ html, body, [class*="css"] {
     font-size: 5rem;
     letter-spacing: 0.08em;
     line-height: 1;
-    background: linear-gradient(135deg, #f5a623 0%, #f7c06e 50%, #e8870a 100%);
+    background: linear-gradient(135deg, #f9c74f 0%, #f8961e 60%, #f3722c 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: none;
 }
 .hero-sub {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    color: #4a5568;
-    letter-spacing: 0.2em;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     margin-top: 0.4rem;
 }
 .hero-date {
     text-align: right;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: #2d3748;
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.35);
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    line-height: 1.8;
+    line-height: 2;
 }
 .hero-date span {
     display: block;
-    color: #f5a623;
-    font-size: 1.1rem;
+    color: #f9c74f;
+    font-size: 1.15rem;
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
 }
 
 /* ── Section headers ── */
 .section-label {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: #f5a623;
+    color: #f9c74f;
     margin-bottom: 1.2rem;
     display: flex;
     align-items: center;
@@ -99,15 +100,62 @@ html, body, [class*="css"] {
     content: '';
     flex: 1;
     height: 1px;
-    background: linear-gradient(90deg, #1e2535 0%, transparent 100%);
+    background: linear-gradient(90deg, rgba(249,199,79,0.3) 0%, transparent 100%);
 }
 
-/* ── Score card ── */
+/* ── STAT CARDS — white cards on navy ── */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+.stat-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.4rem 1.5rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+    animation: fadeIn 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #f9c74f, #f8961e);
+}
+.stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #7c8db0;
+    margin-bottom: 0.5rem;
+}
+.stat-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.6rem;
+    letter-spacing: 0.04em;
+    color: #1b2340;
+    line-height: 1;
+}
+.stat-unit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: #a0aec0;
+    margin-top: 0.2rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* ── SCORE CARD ── */
 .score-card {
-    background: #0d1117;
-    border: 1px solid #1a2030;
-    border-radius: 4px;
-    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 2rem 1.75rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
     position: relative;
     overflow: hidden;
     animation: fadeIn 0.5s ease;
@@ -116,82 +164,94 @@ html, body, [class*="css"] {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #f5a623, #e8870a, transparent);
+    height: 5px;
+    background: linear-gradient(90deg, #f9c74f, #f8961e, #f3722c);
 }
 .score-number {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 8rem;
+    font-size: 9rem;
     line-height: 1;
     letter-spacing: 0.02em;
-    background: linear-gradient(135deg, #f5a623, #f7c06e);
+    background: linear-gradient(135deg, #f8961e, #f3722c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 .score-denom {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 1.5rem;
-    color: #2d3748;
-    margin-top: -1rem;
+    font-size: 1rem;
+    color: #a0aec0;
+    margin-top: -0.5rem;
+    letter-spacing: 0.1em;
 }
 .score-verdict {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.2rem;
+    font-size: 2.4rem;
     letter-spacing: 0.1em;
-    margin-top: 0.5rem;
+    margin-top: 0.75rem;
 }
-.verdict-elite { color: #48bb78; }
-.verdict-solid { color: #f5a623; }
-.verdict-reset { color: #fc4c4c; }
+.verdict-elite { color: #22c55e; }
+.verdict-solid { color: #f8961e; }
+.verdict-reset { color: #ef4444; }
 
 /* ── Progress bar ── */
 .progress-track {
-    background: #111827;
-    border-radius: 2px;
-    height: 6px;
-    margin-top: 1.5rem;
+    background: #edf2f7;
+    border-radius: 99px;
+    height: 8px;
+    margin-top: 1.25rem;
     overflow: hidden;
     width: 100%;
 }
 .progress-fill {
     height: 100%;
-    border-radius: 2px;
-    transition: width 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    border-radius: 99px;
+    transition: width 0.9s cubic-bezier(0.25, 1, 0.5, 1);
 }
-.progress-fill-elite { background: linear-gradient(90deg, #48bb78, #68d391); }
-.progress-fill-solid { background: linear-gradient(90deg, #f5a623, #f7c06e); }
-.progress-fill-reset { background: linear-gradient(90deg, #fc4c4c, #feb2b2); }
+.progress-fill-elite { background: linear-gradient(90deg, #22c55e, #4ade80); }
+.progress-fill-solid { background: linear-gradient(90deg, #f8961e, #f9c74f); }
+.progress-fill-reset { background: linear-gradient(90deg, #ef4444, #fca5a5); }
 
-/* ── Task rows ── */
+/* ── TASK PANEL — white card ── */
+.task-panel {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+}
 .task-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.9rem 0;
-    border-bottom: 1px solid #111827;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
-    letter-spacing: 0.05em;
-    transition: all 0.2s;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid #edf2f7;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.15s;
 }
 .task-row:last-child { border-bottom: none; }
-.task-row:hover { background: rgba(245, 166, 35, 0.03); padding-left: 0.5rem; }
+.task-row:hover { background: #fffbf0; border-radius: 6px; padding-left: 0.5rem; padding-right: 0.5rem; }
 .task-tag {
-    background: #1a2030;
-    border-radius: 2px;
-    padding: 0.2rem 0.5rem;
-    font-size: 0.6rem;
-    color: #4a5568;
+    background: #f0f4ff;
+    border-radius: 4px;
+    padding: 0.2rem 0.55rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    color: #7c8db0;
     letter-spacing: 0.1em;
     text-transform: uppercase;
 }
 .task-pts {
-    color: #4a5568;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
+    font-weight: 700;
+    margin-left: 0.75rem;
+    min-width: 2.5rem;
+    text-align: right;
 }
 
-/* ── Pillar cards ── */
+/* ── PILLAR CARDS ── */
 .pillar-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -199,179 +259,162 @@ html, body, [class*="css"] {
     margin-top: 0.5rem;
 }
 .pillar-card {
-    background: #0d1117;
-    border: 1px solid #1a2030;
-    border-radius: 4px;
-    padding: 1.25rem 1rem;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.4rem 1.2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     position: relative;
     overflow: hidden;
-    transition: border-color 0.2s, transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
     animation: fadeIn 0.6s ease;
 }
 .pillar-card:hover {
-    border-color: #f5a623;
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
 }
 .pillar-card::after {
     content: '';
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    height: 2px;
+    height: 4px;
+    border-radius: 0 0 12px 12px;
 }
-.pillar-very-high::after { background: #f5a623; }
-.pillar-high::after { background: #68d391; }
-.pillar-medium::after { background: #63b3ed; }
-.pillar-low::after { background: #4a5568; }
+.pillar-very-high::after { background: linear-gradient(90deg, #f9c74f, #f8961e); }
+.pillar-high::after       { background: linear-gradient(90deg, #22c55e, #4ade80); }
+.pillar-medium::after     { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+.pillar-low::after        { background: #cbd5e0; }
 
 .pillar-name {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: #6b7280;
-    margin-bottom: 0.5rem;
+    color: #a0aec0;
+    margin-bottom: 0.6rem;
+    line-height: 1.5;
 }
 .pillar-level {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.5rem;
-    letter-spacing: 0.1em;
+    font-size: 1.6rem;
+    letter-spacing: 0.08em;
 }
-.level-very-high { color: #f5a623; }
-.level-high { color: #68d391; }
-.level-medium { color: #63b3ed; }
-.level-low { color: #4a5568; }
+.level-very-high { color: #f8961e; }
+.level-high       { color: #22c55e; }
+.level-medium     { color: #3b82f6; }
+.level-low        { color: #a0aec0; }
 
-/* ── Streak & stat cards ── */
-.stat-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    margin-bottom: 2.5rem;
+/* ── REFLECTION CARD ── */
+.reflection-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.75rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
 }
-.stat-card {
-    background: #0d1117;
-    border: 1px solid #1a2030;
-    border-radius: 4px;
-    padding: 1.2rem 1.4rem;
-    animation: fadeIn 0.5s ease;
-}
-.stat-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #4a5568;
-    margin-bottom: 0.4rem;
-}
-.stat-value {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.2rem;
-    letter-spacing: 0.05em;
-    color: #f5a623;
-    line-height: 1;
-}
-.stat-unit {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: #2d3748;
-    margin-top: 0.1rem;
-}
-
-/* ── Reflection area ── */
 .stTextArea textarea {
-    background: #0d1117 !important;
-    border: 1px solid #1a2030 !important;
-    border-radius: 4px !important;
-    color: #c8d0e0 !important;
-    font-family: 'JetBrains Mono', monospace !important;
-    font-size: 0.8rem !important;
-    letter-spacing: 0.03em !important;
+    background: #f8faff !important;
+    border: 1.5px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    color: #1e2a3a !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 0.9rem !important;
     line-height: 1.8 !important;
     padding: 1rem !important;
     transition: border-color 0.2s !important;
 }
 .stTextArea textarea:focus {
-    border-color: #f5a623 !important;
-    box-shadow: 0 0 0 1px rgba(245, 166, 35, 0.15) !important;
+    border-color: #f8961e !important;
+    box-shadow: 0 0 0 3px rgba(248,150,30,0.12) !important;
 }
+.stTextArea textarea::placeholder { color: #a0aec0 !important; }
 .stTextArea label {
     font-family: 'JetBrains Mono', monospace !important;
-    font-size: 0.7rem !important;
-    letter-spacing: 0.15em !important;
+    font-size: 0.65rem !important;
+    letter-spacing: 0.18em !important;
     text-transform: uppercase !important;
-    color: #4a5568 !important;
+    color: #7c8db0 !important;
+    font-weight: 600 !important;
 }
 
-/* ── Checkboxes ── */
+/* ── CHECKBOXES — must be visible on navy background ── */
+.stCheckbox {
+    background: rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 0.6rem 0.75rem;
+    margin-bottom: 0.3rem;
+    transition: background 0.15s;
+}
+.stCheckbox:hover { background: rgba(255,255,255,0.1); }
 .stCheckbox label {
-    font-family: 'JetBrains Mono', monospace !important;
-    font-size: 0.8rem !important;
-    letter-spacing: 0.05em !important;
-    color: #9aa3b0 !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    color: #e2eaf8 !important;
 }
-.stCheckbox input:checked + label { color: #c8d0e0 !important; }
+.stCheckbox label p { color: #e2eaf8 !important; }
 
-/* ── Buttons ── */
+/* ── BUTTONS ── */
 .stButton > button {
-    background: transparent !important;
-    border: 1px solid #f5a623 !important;
-    border-radius: 2px !important;
-    color: #f5a623 !important;
-    font-family: 'JetBrains Mono', monospace !important;
-    font-size: 0.7rem !important;
-    letter-spacing: 0.2em !important;
+    background: linear-gradient(135deg, #f9c74f, #f8961e) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    color: #1b2340 !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
     text-transform: uppercase !important;
-    padding: 0.6rem 1.5rem !important;
+    padding: 0.65rem 1.5rem !important;
     transition: all 0.2s !important;
+    box-shadow: 0 2px 12px rgba(248,150,30,0.35) !important;
 }
 .stButton > button:hover {
-    background: rgba(245, 166, 35, 0.08) !important;
-    transform: translateY(-1px) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(248,150,30,0.45) !important;
 }
 
-/* ── Divider ── */
-hr { border-color: #1a2030 !important; margin: 2rem 0 !important; }
+/* ── DIVIDER ── */
+hr { border-color: rgba(255,255,255,0.08) !important; margin: 2rem 0 !important; }
 
-/* ── Alert overrides ── */
-.stAlert { border-radius: 4px !important; border-left-width: 3px !important; }
-
-/* ── Selectbox ── */
-.stSelectbox select, .stSelectbox > div > div {
-    background: #0d1117 !important;
-    border-color: #1a2030 !important;
-    font-family: 'JetBrains Mono', monospace !important;
-    font-size: 0.8rem !important;
-    color: #c8d0e0 !important;
+/* ── QUOTE CARD ── */
+.quote-card {
+    background: linear-gradient(135deg, #f9c74f 0%, #f8961e 100%);
+    border-radius: 12px;
+    padding: 1.75rem;
+    box-shadow: 0 4px 24px rgba(248,150,30,0.35);
 }
 
-/* ── Animations ── */
+/* ── ANIMATIONS ── */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
+    from { opacity: 0; transform: translateY(10px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes pulse {
     0%, 100% { opacity: 1; }
-    50%       { opacity: 0.4; }
+    50%       { opacity: 0.3; }
 }
 .live-dot {
     display: inline-block;
-    width: 6px; height: 6px;
-    background: #f5a623;
+    width: 7px; height: 7px;
+    background: #4ade80;
     border-radius: 50%;
     margin-right: 0.5rem;
     animation: pulse 2s ease infinite;
+    box-shadow: 0 0 6px #4ade80;
 }
 
-/* ── History table ── */
+/* ── DATAFRAME ── */
 .stDataFrame {
-    border: 1px solid #1a2030 !important;
-    border-radius: 4px !important;
+    background: #ffffff !important;
+    border-radius: 12px !important;
     overflow: hidden !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2) !important;
 }
-.stDataFrame table {
-    font-family: 'JetBrains Mono', monospace !important;
-    font-size: 0.75rem !important;
-}
+.stDataFrame table { font-family: 'Plus Jakarta Sans', sans-serif !important; font-size: 0.82rem !important; }
+.stDataFrame th { background: #f8faff !important; color: #7c8db0 !important; font-size: 0.7rem !important; letter-spacing: 0.1em !important; }
+.stDataFrame td { color: #1e2a3a !important; }
+
+/* ── ALERTS ── */
+.stAlert { border-radius: 8px !important; border: none !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -536,17 +579,18 @@ with col_tasks:
     rows_html = ""
     for t in TASKS:
         done = checked.get(t["key"])
-        icon = "▪" if not done else "▸"
-        color = "#f5a623" if done else "#2d3748"
-        name_color = "#c8d0e0" if done else "#4a5568"
+        icon = "✓" if done else "○"
+        icon_color = "#22c55e" if done else "#cbd5e0"
+        name_color = "#1e2a3a" if done else "#6b7280"
+        pts_color  = "#f8961e" if done else "#a0aec0"
         rows_html += f"""
         <div class="task-row">
-          <span style="color:{color}; margin-right:0.75rem;">{icon}</span>
-          <span style="flex:1; color:{name_color}">{t['label']}</span>
+          <span style="color:{icon_color}; margin-right:0.75rem; font-weight:700; font-size:1rem;">{icon}</span>
+          <span style="flex:1; color:{name_color}; font-weight:{'600' if done else '400'}">{t['label']}</span>
           <span class="task-tag">{t['tag']}</span>
-          <span class="task-pts" style="margin-left:1rem; color:{'#f5a623' if done else '#2d3748'}">+{t['pts']}</span>
+          <span class="task-pts" style="color:{pts_color}">+{t['pts']}</span>
         </div>"""
-    st.markdown(f'<div style="margin-top:0.5rem">{rows_html}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="task-panel" style="margin-top:0.75rem">{rows_html}</div>', unsafe_allow_html=True)
 
 
 st.markdown("---")
@@ -614,12 +658,12 @@ with col_ref:
 
     if st.session_state.saved_today:
         st.markdown("""
-        <div style="margin-top:0.75rem; padding:0.75rem 1rem;
-                    background:#0d1117; border:1px solid #1a3020;
-                    border-left:3px solid #48bb78; border-radius:4px;
-                    font-family:'JetBrains Mono',monospace; font-size:0.75rem;
-                    color:#68d391; letter-spacing:0.05em;">
-          ▸ DAY COMMITTED — ENTRY LOCKED TO HISTORY
+        <div style="margin-top:0.75rem; padding:0.85rem 1.1rem;
+                    background:#f0fdf4; border:1.5px solid #bbf7d0;
+                    border-left:4px solid #22c55e; border-radius:8px;
+                    font-family:'Plus Jakarta Sans',sans-serif; font-size:0.85rem;
+                    color:#15803d; font-weight:600;">
+          ✓ Day committed — entry saved to your history
         </div>
         """, unsafe_allow_html=True)
 
@@ -627,16 +671,14 @@ with col_quote:
     st.markdown('<div class="section-label">FOUNDER SIGNAL</div>', unsafe_allow_html=True)
     quote = random.choice(CEO_QUOTES)
     st.markdown(f"""
-    <div style="background:#0d1117; border:1px solid #1a2030;
-                border-left:3px solid #f5a623; border-radius:4px;
-                padding:1.5rem; margin-top:0.2rem;
-                animation: fadeIn 0.6s ease;">
-      <div style="font-family:'Space Grotesk',sans-serif; font-size:0.95rem;
-                  line-height:1.7; color:#9aa3b0; font-style:italic;">
+    <div class="quote-card" style="animation: fadeIn 0.6s ease; margin-top:0.2rem;">
+      <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem;
+                  line-height:1.75; color:#1b2340; font-style:italic; font-weight:500;">
         "{quote}"
       </div>
       <div style="margin-top:1rem; font-family:'JetBrains Mono',monospace;
-                  font-size:0.6rem; letter-spacing:0.2em; color:#2d3748;">
+                  font-size:0.6rem; letter-spacing:0.2em; color:rgba(27,35,64,0.5);
+                  text-transform:uppercase;">
         — THE LONG GAME OS
       </div>
     </div>

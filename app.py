@@ -1,6 +1,3 @@
-Replace everything inside `app.py` with this upgraded Version 2 code:
-
-```python
 import streamlit as st
 import pandas as pd
 

@@ -892,31 +892,45 @@ with tab_weekly:
 
     history_map = {e["date"]: e for e in data["history"]}
 
-    # Weekly bar chart
-    bars_html = '<div class="weekly-bars">'
+    # Weekly bar chart — use fixed pixel heights (120px max bar) to avoid % height collapse in Streamlit
+    MAX_BAR_PX = 120
+    bars_html = '<div style="display:flex; align-items:flex-end; gap:8px; height:{}px; padding:0 0 0 0;">'.format(MAX_BAR_PX + 36)
     for i, d in enumerate(week_days):
         ds = d.isoformat()
         entry = history_map.get(ds)
+        is_today = (d == today)
+        today_border = "border: 2px solid #f9c74f;" if is_today else ""
         if entry:
             sc = entry["score"]
-            h_pct = max(5, sc)
-            bar_cls = "weekly-bar-elite" if sc >= 85 else ("weekly-bar-solid" if sc >= 60 else "weekly-bar-reset")
-            score_lbl = f'<div class="weekly-score-label">{sc}</div>'
+            bar_px = max(6, int((sc / 100) * MAX_BAR_PX))
+            if sc >= 85:
+                bar_bg = "linear-gradient(180deg,#4ade80,#22c55e)"
+            elif sc >= 60:
+                bar_bg = "linear-gradient(180deg,#f9c74f,#f8961e)"
+            else:
+                bar_bg = "linear-gradient(180deg,#fca5a5,#ef4444)"
+            score_lbl = f'<div style="font-family:JetBrains Mono,monospace;font-size:0.6rem;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:4px;letter-spacing:0.05em">{sc}</div>'
         else:
-            h_pct = 4
-            bar_cls = "weekly-bar-empty"
-            score_lbl = ""
+            bar_px = 4
+            bar_bg = "rgba(255,255,255,0.07)"
+            score_lbl = '<div style="height:18px"></div>'
+
         bars_html += f"""
-        <div class="weekly-bar-wrap">
+        <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%;">
           {score_lbl}
-          <div class="weekly-bar {bar_cls}" style="height:{h_pct}%"></div>
-          <div class="weekly-day-label">{day_labels[i]}</div>
+          <div style="width:100%; height:{bar_px}px; background:{bar_bg}; border-radius:5px 5px 0 0; {today_border} box-sizing:border-box;"></div>
+          <div style="font-family:JetBrains Mono,monospace; font-size:0.55rem; color:{'#f9c74f' if is_today else 'rgba(255,255,255,0.3)'}; letter-spacing:0.1em; margin-top:6px; text-transform:uppercase; font-weight:{'700' if is_today else '400'}">{day_labels[i]}</div>
         </div>"""
     bars_html += "</div>"
 
     col_wk1, col_wk2 = st.columns([2, 1], gap="large")
     with col_wk1:
-        st.markdown(f'<div class="analytics-card"><div class="analytics-card-title">SCORE BY DAY — CURRENT WEEK</div>{bars_html}</div>', unsafe_allow_html=True)
+        st.markdown(f'''
+        <div style="background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid rgba(255,255,255,0.07);">
+          <div style="font-family:JetBrains Mono,monospace; font-size:0.58rem; letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:1.2rem;">SCORE BY DAY — CURRENT WEEK</div>
+          {bars_html}
+        </div>
+        ''', unsafe_allow_html=True)
 
     with col_wk2:
         week_entries = [history_map[d.isoformat()] for d in week_days if d.isoformat() in history_map]

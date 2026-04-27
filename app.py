@@ -458,6 +458,20 @@ hr { border-color: rgba(255,255,255,0.06) !important; margin: 1.5rem 0 !importan
     color: rgba(255,255,255,0.4);
     letter-spacing: 0.05em;
 }
+.stButton > button[kind="secondary"],
+button[data-testid*="del_"] {
+    background: rgba(239,68,68,0.12) !important;
+    border: 1px solid rgba(239,68,68,0.3) !important;
+    color: #fca5a5 !important;
+    box-shadow: none !important;
+    padding: 0.4rem 0.6rem !important;
+    font-size: 0.7rem !important;
+}
+button[data-testid*="del_"]:hover {
+    background: rgba(239,68,68,0.25) !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -974,7 +988,11 @@ with tab_today:
 
             for t in tasks_p:
                 tk = get_task_key(pk, t)
-                c1, c2 = st.columns([5, 1])
+                is_custom = t.get("is_custom", False)
+                if is_custom:
+                    c1, c2, c3 = st.columns([5, 1, 1])
+                else:
+                    c1, c2 = st.columns([5, 1])
                 with c1:
                     st.checkbox(t["name"], key=f"cb_{tk}", help=f"+{t['pts']} pts")
                 with c2:
@@ -983,6 +1001,16 @@ with tab_today:
                         f'font-size:0.65rem; color:#f9c74f; font-weight:700;">+{t["pts"]}</div>',
                         unsafe_allow_html=True
                     )
+                if is_custom:
+                    with c3:
+                        if st.button("✕", key=f"del_{tk}", help="Remove this task"):
+                            data["custom_tasks"][pk] = [
+                                ct for ct in data["custom_tasks"].get(pk, [])
+                                if ct["id"] != t["id"]
+                            ]
+                            save_data(data)
+                            st.session_state.data = data
+                            st.rerun()
 
             show_key = f"show_add_{pk}"
             if show_key not in st.session_state:

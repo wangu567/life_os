@@ -1275,15 +1275,21 @@ with tab_growth:
 
     for yr, ms in MILESTONES.items():
         hrs_logged = round(yearly_per_skill.get("Coding", 0) * yr)
-        items_html = "".join(f'<div style="font-family:Plus Jakarta Sans,sans-serif; font-size:0.8rem; color:rgba(255,255,255,0.65); padding:3px 0; padding-left:14px; position:relative"><span style="position:absolute;left:0;color:{ms[\'color\']}">›</span>{item}</div>' for item in ms["items"])
+        # FIX: extract color before f-string to avoid backslash-in-expression error
+        ms_color = ms["color"]
+        items_html = "".join(
+            f'<div style="font-family:Plus Jakarta Sans,sans-serif; font-size:0.8rem; color:rgba(255,255,255,0.65); padding:3px 0; padding-left:14px; position:relative">'
+            f'<span style="position:absolute;left:0;color:{ms_color}">›</span>{item}</div>'
+            for item in ms["items"]
+        )
 
         col_yr, col_content = st.columns([1, 4], gap="small")
         with col_yr:
             st.markdown(f"""
-            <div style="background:#1e293b; border-radius:10px; padding:1.1rem; border:1px solid rgba(255,255,255,0.07); border-top:3px solid {ms['color']}; text-align:center; height:100%">
+            <div style="background:#1e293b; border-radius:10px; padding:1.1rem; border:1px solid rgba(255,255,255,0.07); border-top:3px solid {ms_color}; text-align:center; height:100%">
               <div style="font-family:'JetBrains Mono',monospace; font-size:0.55rem; color:rgba(255,255,255,0.3); letter-spacing:0.2em; text-transform:uppercase">Year</div>
-              <div style="font-family:'Bebas Neue',sans-serif; font-size:3.5rem; color:{ms['color']}; line-height:1">{yr}</div>
-              <div style="font-family:'Bebas Neue',sans-serif; font-size:1.1rem; color:{ms['color']}; letter-spacing:0.1em">{ms['title']}</div>
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:3.5rem; color:{ms_color}; line-height:1">{yr}</div>
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:1.1rem; color:{ms_color}; letter-spacing:0.1em">{ms['title']}</div>
               <div style="font-family:'JetBrains Mono',monospace; font-size:0.55rem; color:rgba(255,255,255,0.25); margin-top:0.5rem">{hrs_logged:,}h coding</div>
             </div>
             """, unsafe_allow_html=True)

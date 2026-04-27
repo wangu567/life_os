@@ -6,7 +6,6 @@ import os
 import random
 import math
 
-# ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="The Long Game — Life OS",
     layout="wide",
@@ -14,7 +13,6 @@ st.set_page_config(
     page_icon="⚡",
 )
 
-# ── CSS ────────────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
@@ -23,18 +21,17 @@ st.markdown("""
 
 html, body, [class*="css"], .stApp {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: #111827 !important;
+    background-color: #0d1117 !important;
     color: #f1f5f9 !important;
 }
 .main .block-container {
     padding: 2rem 2.5rem 4rem;
     max-width: 1500px;
-    background-color: #111827 !important;
+    background-color: #0d1117 !important;
 }
 #MainMenu, footer, header { visibility: hidden; }
 .stDeployButton { display: none; }
 
-/* HERO */
 .hero-header {
     display: flex;
     align-items: flex-end;
@@ -42,7 +39,6 @@ html, body, [class*="css"], .stApp {
     padding: 0 0 2rem;
     border-bottom: 1px solid rgba(255,255,255,0.07);
     margin-bottom: 2rem;
-    animation: fadeIn 0.6s ease;
 }
 .hero-title {
     font-family: 'Bebas Neue', sans-serif;
@@ -79,7 +75,6 @@ html, body, [class*="css"], .stApp {
     letter-spacing: 0.04em;
 }
 
-/* NAV TABS */
 .stTabs [data-baseweb="tab-list"] {
     background: rgba(255,255,255,0.04) !important;
     border-radius: 10px !important;
@@ -104,7 +99,6 @@ html, body, [class*="css"], .stApp {
     font-weight: 700 !important;
 }
 
-/* SECTION LABEL */
 .section-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.6rem;
@@ -123,10 +117,9 @@ html, body, [class*="css"], .stApp {
     background: linear-gradient(90deg, rgba(249,199,79,0.3) 0%, transparent 100%);
 }
 
-/* STAT CARDS */
 .stat-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
     margin-bottom: 2rem;
 }
@@ -135,7 +128,6 @@ html, body, [class*="css"], .stApp {
     border-radius: 12px;
     padding: 1.3rem 1.4rem;
     border: 1px solid rgba(255,255,255,0.07);
-    animation: fadeIn 0.5s ease;
     position: relative;
     overflow: hidden;
 }
@@ -156,21 +148,20 @@ html, body, [class*="css"], .stApp {
 }
 .stat-value {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.4rem;
+    font-size: 2.2rem;
     letter-spacing: 0.04em;
     color: #f1f5f9;
     line-height: 1;
 }
 .stat-unit {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.55rem;
+    font-size: 0.52rem;
     color: rgba(255,255,255,0.25);
     margin-top: 0.2rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
 }
 
-/* SCORE CARD */
 .score-card {
     background: #1e293b;
     border-radius: 14px;
@@ -178,7 +169,6 @@ html, body, [class*="css"], .stApp {
     border: 1px solid rgba(255,255,255,0.07);
     position: relative;
     overflow: hidden;
-    animation: fadeIn 0.5s ease;
     height: 100%;
 }
 .score-card::before {
@@ -190,7 +180,7 @@ html, body, [class*="css"], .stApp {
 }
 .score-number {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 8rem;
+    font-size: 7rem;
     line-height: 1;
     letter-spacing: 0.02em;
     background: linear-gradient(135deg, #f8961e, #f3722c);
@@ -200,14 +190,14 @@ html, body, [class*="css"], .stApp {
 }
 .score-denom {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
+    font-size: 0.72rem;
     color: rgba(255,255,255,0.3);
     margin-top: -0.5rem;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
 }
 .score-verdict {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
+    font-size: 1.8rem;
     letter-spacing: 0.1em;
     margin-top: 0.75rem;
 }
@@ -215,7 +205,6 @@ html, body, [class*="css"], .stApp {
 .verdict-solid  { color: #f8961e; }
 .verdict-reset  { color: #ef4444; }
 
-/* PROGRESS BAR */
 .progress-track {
     background: rgba(255,255,255,0.08);
     border-radius: 99px;
@@ -223,73 +212,42 @@ html, body, [class*="css"], .stApp {
     margin-top: 1rem;
     overflow: hidden;
 }
-.progress-fill {
-    height: 100%;
-    border-radius: 99px;
-    transition: width 0.9s cubic-bezier(0.25, 1, 0.5, 1);
-}
+.progress-fill { height: 100%; border-radius: 99px; }
 .progress-fill-elite { background: linear-gradient(90deg, #22c55e, #4ade80); }
 .progress-fill-solid { background: linear-gradient(90deg, #f8961e, #f9c74f); }
 .progress-fill-reset { background: linear-gradient(90deg, #ef4444, #fca5a5); }
 
-/* PILLAR PANEL */
 .pillar-panel {
     background: #1e293b;
     border-radius: 14px;
     border: 1px solid rgba(255,255,255,0.07);
     overflow: hidden;
-    margin-bottom: 1rem;
-    transition: box-shadow 0.2s;
+    margin-bottom: 0.75rem;
 }
 .pillar-panel:hover { box-shadow: 0 0 0 1px rgba(249,199,79,0.2); }
 .pillar-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 1.25rem;
+    padding: 0.9rem 1.25rem;
     border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 .pillar-header-name {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
     letter-spacing: 0.12em;
     color: #f1f5f9;
 }
 .pillar-header-tag {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.55rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     padding: 0.2rem 0.6rem;
     border-radius: 99px;
     font-weight: 600;
 }
-.pillar-task-list { padding: 0.6rem 0; }
-.pillar-task-row {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 1.25rem;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.82rem;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    transition: background 0.15s;
-}
-.pillar-task-row:last-child { border-bottom: none; }
-.pillar-pts-badge {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem;
-    font-weight: 700;
-    margin-left: auto;
-    padding: 0.15rem 0.5rem;
-    border-radius: 4px;
-    background: rgba(249,199,79,0.1);
-    color: #f9c74f;
-    letter-spacing: 0.08em;
-}
 
-/* CHECKBOXES */
-.stCheckbox { margin-bottom: 0 !important; }
 .stCheckbox label {
     font-family: 'Plus Jakarta Sans', sans-serif !important;
     font-size: 0.82rem !important;
@@ -298,7 +256,6 @@ html, body, [class*="css"], .stApp {
 }
 .stCheckbox label p { color: rgba(255,255,255,0.75) !important; }
 
-/* BUTTONS */
 .stButton > button {
     background: linear-gradient(135deg, #f9c74f, #f8961e) !important;
     border: none !important;
@@ -310,7 +267,6 @@ html, body, [class*="css"], .stApp {
     letter-spacing: 0.06em !important;
     text-transform: uppercase !important;
     padding: 0.6rem 1.4rem !important;
-    transition: all 0.2s !important;
     box-shadow: 0 2px 12px rgba(248,150,30,0.3) !important;
 }
 .stButton > button:hover {
@@ -318,7 +274,6 @@ html, body, [class*="css"], .stApp {
     box-shadow: 0 6px 20px rgba(248,150,30,0.45) !important;
 }
 
-/* TEXT AREA */
 .stTextArea textarea {
     background: #0f172a !important;
     border: 1.5px solid rgba(255,255,255,0.1) !important;
@@ -328,12 +283,8 @@ html, body, [class*="css"], .stApp {
     font-size: 0.88rem !important;
     line-height: 1.8 !important;
     padding: 1rem !important;
-    transition: border-color 0.2s !important;
 }
-.stTextArea textarea:focus {
-    border-color: #f8961e !important;
-    box-shadow: 0 0 0 3px rgba(248,150,30,0.1) !important;
-}
+.stTextArea textarea:focus { border-color: #f8961e !important; }
 .stTextArea label {
     font-family: 'JetBrains Mono', monospace !important;
     font-size: 0.6rem !important;
@@ -342,7 +293,30 @@ html, body, [class*="css"], .stApp {
     color: rgba(255,255,255,0.35) !important;
 }
 
-/* QUOTE CARD */
+.stNumberInput input, .stTextInput input {
+    background: #0f172a !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 8px !important;
+    color: #f1f5f9 !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+.stSlider label {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 0.6rem !important;
+    letter-spacing: 0.18em !important;
+    text-transform: uppercase !important;
+    color: rgba(255,255,255,0.4) !important;
+}
+
+.stSelectbox label {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 0.6rem !important;
+    letter-spacing: 0.18em !important;
+    text-transform: uppercase !important;
+    color: rgba(255,255,255,0.4) !important;
+}
+
 .quote-card {
     background: linear-gradient(135deg, #f9c74f 0%, #f8961e 100%);
     border-radius: 12px;
@@ -350,7 +324,6 @@ html, body, [class*="css"], .stApp {
     box-shadow: 0 4px 24px rgba(248,150,30,0.25);
 }
 
-/* ANALYTICS CARD */
 .analytics-card {
     background: #1e293b;
     border-radius: 12px;
@@ -367,61 +340,6 @@ html, body, [class*="css"], .stApp {
     margin-bottom: 1.2rem;
 }
 
-/* HABIT GRID */
-.habit-grid-wrap { display: flex; flex-direction: column; gap: 0.5rem; }
-.habit-row { display: flex; align-items: center; gap: 0.6rem; }
-.habit-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.58rem;
-    color: rgba(255,255,255,0.4);
-    letter-spacing: 0.1em;
-    width: 110px;
-    text-transform: uppercase;
-    flex-shrink: 0;
-}
-.habit-cells { display: flex; gap: 3px; flex-wrap: wrap; }
-.habit-cell {
-    width: 16px;
-    height: 16px;
-    border-radius: 3px;
-    transition: transform 0.1s;
-}
-.habit-cell:hover { transform: scale(1.3); }
-.habit-done  { background: #f8961e; }
-.habit-miss  { background: rgba(255,255,255,0.07); }
-.habit-na    { background: transparent; border: 1px dashed rgba(255,255,255,0.1); }
-
-/* WEEKLY BAR */
-.weekly-bars { display: flex; align-items: flex-end; gap: 6px; height: 80px; margin-bottom: 0.4rem; }
-.weekly-bar-wrap { display: flex; flex-direction: column; align-items: center; flex: 1; height: 100%; justify-content: flex-end; }
-.weekly-bar {
-    width: 100%;
-    border-radius: 4px 4px 0 0;
-    background: linear-gradient(180deg, #f9c74f, #f8961e);
-    transition: height 0.6s ease;
-    min-height: 3px;
-    position: relative;
-}
-.weekly-bar-elite { background: linear-gradient(180deg, #4ade80, #22c55e); }
-.weekly-bar-solid  { background: linear-gradient(180deg, #f9c74f, #f8961e); }
-.weekly-bar-reset  { background: linear-gradient(180deg, #fca5a5, #ef4444); }
-.weekly-bar-empty  { background: rgba(255,255,255,0.06); }
-.weekly-day-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.52rem;
-    color: rgba(255,255,255,0.3);
-    letter-spacing: 0.1em;
-    margin-top: 0.35rem;
-    text-transform: uppercase;
-}
-.weekly-score-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.55rem;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 2px;
-}
-
-/* PILLAR SCORE BAR */
 .pillar-score-row {
     display: flex;
     align-items: center;
@@ -430,8 +348,8 @@ html, body, [class*="css"], .stApp {
 }
 .pillar-score-name {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.12em;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
     color: rgba(255,255,255,0.45);
     text-transform: uppercase;
     width: 80px;
@@ -444,11 +362,7 @@ html, body, [class*="css"], .stApp {
     height: 6px;
     overflow: hidden;
 }
-.pillar-score-fill {
-    height: 100%;
-    border-radius: 99px;
-    transition: width 0.8s ease;
-}
+.pillar-score-fill { height: 100%; border-radius: 99px; }
 .pillar-score-pct {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.6rem;
@@ -458,37 +372,6 @@ html, body, [class*="css"], .stApp {
     flex-shrink: 0;
 }
 
-/* DATAFRAME */
-.stDataFrame { background: #1e293b !important; border-radius: 12px !important; overflow: hidden !important; }
-.stDataFrame th { background: #0f172a !important; color: rgba(255,255,255,0.4) !important; font-size: 0.65rem !important; letter-spacing: 0.1em !important; }
-.stDataFrame td { color: #f1f5f9 !important; font-size: 0.8rem !important; }
-
-/* ALERTS */
-.stAlert { border-radius: 8px !important; border: none !important; }
-
-/* DIVIDER */
-hr { border-color: rgba(255,255,255,0.06) !important; margin: 1.5rem 0 !important; }
-
-/* ANIMATIONS */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0.3; }
-}
-.live-dot {
-    display: inline-block;
-    width: 7px; height: 7px;
-    background: #4ade80;
-    border-radius: 50%;
-    margin-right: 0.5rem;
-    animation: pulse 2s ease infinite;
-    box-shadow: 0 0 6px #4ade80;
-}
-
-/* PILLAR COLOR ACCENTS */
 .tag-foundation { background: rgba(249,199,79,0.12); color: #f9c74f; }
 .tag-health      { background: rgba(34,197,94,0.12);  color: #4ade80; }
 .tag-wealth      { background: rgba(59,130,246,0.12); color: #60a5fa; }
@@ -503,27 +386,98 @@ hr { border-color: rgba(255,255,255,0.06) !important; margin: 1.5rem 0 !importan
 .fill-mission     { background: #f8961e; }
 .fill-mastery     { background: #fb7185; }
 
-/* ADD TASK FORM */
-.add-task-form {
-    background: #0f172a;
+.habit-cell {
+    width: 16px; height: 16px;
+    border-radius: 3px;
+    display: inline-block;
+}
+.habit-done  { background: #f8961e; }
+.habit-miss  { background: rgba(255,255,255,0.07); }
+.habit-na    { background: transparent; border: 1px dashed rgba(255,255,255,0.1); }
+
+hr { border-color: rgba(255,255,255,0.06) !important; margin: 1.5rem 0 !important; }
+
+.live-dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    background: #4ade80;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    animation: pulse 2s ease infinite;
+    box-shadow: 0 0 6px #4ade80;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.growth-milestone {
+    background: #1e293b;
     border-radius: 10px;
-    padding: 1rem 1.25rem;
-    border: 1px dashed rgba(255,255,255,0.1);
-    margin-top: 0.5rem;
+    padding: 1.1rem 1.25rem;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-left: 3px solid;
+    margin-bottom: 0.75rem;
+}
+.schedule-block {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+.schedule-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.4);
+    width: 90px;
+    flex-shrink: 0;
+    padding-top: 3px;
+    letter-spacing: 0.05em;
+}
+.schedule-content {
+    flex: 1;
+    border-radius: 0 8px 8px 0;
+    padding: 8px 12px;
+    border-left: 3px solid;
+}
+.schedule-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #f1f5f9;
+    margin-bottom: 2px;
+}
+.schedule-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.05em;
 }
 </style>
 """, unsafe_allow_html=True)
 
 
-# ── Data & helpers ─────────────────────────────────────────────────────────────
-DATA_FILE = "tlg_life_os_v4.json"
+# ── Data & Constants ──────────────────────────────────────────────────────────
+DATA_FILE = "tlg_life_os.json"
 
 DEFAULT_DATA = {
     "history": [],
     "streak": 0,
     "best_score": 0,
     "total_days": 0,
-    "custom_tasks": {},      # pillar_key -> [{name, pts}]
+    "custom_tasks": {},
+    "schedule_config": {
+        "skill_hours": 2.0,
+        "school_hours": 6.0,
+        "sleep_hours": 7.0,
+        "skill_start": "07:00",
+        "wake_time": "05:00",
+    }
 }
 
 PILLAR_META = {
@@ -536,12 +490,114 @@ PILLAR_META = {
 }
 
 DEFAULT_TASKS = {
-    "foundation": [{"name": "Morning Routine",       "pts": 15, "id": "morning"}],
-    "health":     [{"name": "Workout / Training",    "pts": 15, "id": "workout"}],
-    "wealth":     [{"name": "Finance Review",        "pts": 20, "id": "finance"}],
-    "growth":     [{"name": "Skill Development",     "pts": 20, "id": "skill"}],
-    "mission":    [{"name": "TLG Project Progress",  "pts": 20, "id": "tlg"}],
-    "mastery":    [{"name": "Night Reflection",      "pts": 10, "id": "reflect"}],
+    "foundation": [
+        {"name": "Morning Routine + Movement", "pts": 15, "id": "morning"},
+        {"name": "Evening Wind-Down Ritual",   "pts": 10, "id": "winddown"},
+    ],
+    "health": [
+        {"name": "Exercise / Training",        "pts": 15, "id": "workout"},
+        {"name": "Healthy Meals Tracked",      "pts": 10, "id": "nutrition"},
+    ],
+    "wealth": [
+        {"name": "Finance / Markets Review",   "pts": 20, "id": "finance"},
+        {"name": "BCom Study Session",         "pts": 15, "id": "bcom"},
+    ],
+    "growth": [
+        {"name": "Skill Block Completed",      "pts": 25, "id": "skill"},
+        {"name": "Read / Learn (30+ min)",     "pts": 10, "id": "read"},
+    ],
+    "mission": [
+        {"name": "TLG Project Progress",       "pts": 20, "id": "tlg"},
+        {"name": "Content / Network Action",   "pts": 10, "id": "content"},
+    ],
+    "mastery": [
+        {"name": "Weekly Review (Sunday)",     "pts": 15, "id": "review"},
+        {"name": "Night Reflection Log",       "pts": 10, "id": "reflect"},
+    ],
+}
+
+SKILL_SCHEDULE = {
+    "Mon": {"pair": "Coding + Charts",         "color": "#378ADD", "focus": "Build systems · Read market structure"},
+    "Tue": {"pair": "Communication + Art",     "color": "#D4537E", "focus": "Write · Sketch · Record voice"},
+    "Wed": {"pair": "Coding + Finance",        "color": "#534AB7", "focus": "Build fintech tools · Study models"},
+    "Thu": {"pair": "Communication + Art",     "color": "#D4537E", "focus": "Repetition = mastery · Pitch practice"},
+    "Fri": {"pair": "Coding + Charts",         "color": "#378ADD", "focus": "Builder day · Dominate the week"},
+    "Sat": {"pair": "TLG Deep Work (4h+)",     "color": "#f9c74f", "focus": "All skills · Build real things"},
+    "Sun": {"pair": "Review + Strategy",       "color": "#4ade80", "focus": "Audit · Fix · Plan next moves"},
+}
+
+SKILL_COLORS = {
+    "Coding":         "#378ADD",
+    "Charts":         "#1D9E75",
+    "Communication":  "#D85A30",
+    "Finance":        "#534AB7",
+    "Art":            "#BA7517",
+}
+
+SKILL_WEEKLY_HOURS = {
+    "Coding": 3.0,
+    "Charts": 2.0,
+    "Communication": 2.0,
+    "Finance": 1.0,
+    "Art": 2.0,
+}
+
+MILESTONES = {
+    1: {
+        "title": "Foundation",
+        "color": "#378ADD",
+        "items": [
+            "First coding projects live and deployed",
+            "Market basics solid — can read charts confidently",
+            "Personal brand identity emerging",
+            "Art style forming, creative voice developing",
+            "BCom Finance Year 1 complete",
+        ]
+    },
+    2: {
+        "title": "Momentum",
+        "color": "#1D9E75",
+        "items": [
+            "Side income from digital builds or freelance",
+            "Pitching investors or clients with confidence",
+            "730+ hours of focused skill practice logged",
+            "Consistent content presence established",
+            "Financial models built from scratch",
+        ]
+    },
+    3: {
+        "title": "Leverage",
+        "color": "#534AB7",
+        "items": [
+            "Fintech tool in market with real users",
+            "Audience of 1,000+ engaged followers",
+            "TLG platform MVP launched",
+            "Creative identity distinct and recognisable",
+            "BCom Finance degree complete",
+        ]
+    },
+    4: {
+        "title": "Compound",
+        "color": "#D85A30",
+        "items": [
+            "Skills intersecting powerfully — rare combination",
+            "Revenue systems running semi-automatically",
+            "Museum / gallery vision beginning to take shape",
+            "Network of investors and builders established",
+            "Multiple income streams active",
+        ]
+    },
+    5: {
+        "title": "Founder",
+        "color": "#f9c74f",
+        "items": [
+            "Builder + Investor + Artist + Operator",
+            "3,650+ hours invested across all skills",
+            "TLG is a real platform and business",
+            "Rare combination — wins long term",
+            "The Long Game paid off",
+        ]
+    },
 }
 
 CEO_QUOTES = [
@@ -554,8 +610,13 @@ CEO_QUOTES = [
     "You don't rise to the level of your goals — you fall to the level of your systems.",
     "Small wins compound. The math is on your side.",
     "Clarity is power. Execution is everything.",
+    "Code = Build. Charts = Understand. Finance = Decide. Art = Differentiate.",
+    "Most people learn one skill. You are building five. That's the advantage.",
+    "BCom + Code + Art + Communication = Founder Leverage. That wins.",
 ]
 
+
+# ── Helpers ────────────────────────────────────────────────────────────────────
 def load_data():
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE, "r") as f:
@@ -563,6 +624,8 @@ def load_data():
         for k in DEFAULT_DATA:
             if k not in d:
                 d[k] = DEFAULT_DATA[k]
+        if "schedule_config" not in d:
+            d["schedule_config"] = DEFAULT_DATA["schedule_config"]
         return d
     return dict(DEFAULT_DATA)
 
@@ -571,12 +634,11 @@ def save_data(data):
         json.dump(data, f, indent=2)
 
 def get_all_tasks(data):
-    """Merge default + custom tasks per pillar."""
     all_tasks = {}
-    for pillar_key in PILLAR_META:
-        base = [dict(t) | {"pillar": pillar_key, "is_custom": False} for t in DEFAULT_TASKS[pillar_key]]
-        custom = [dict(t) | {"pillar": pillar_key, "is_custom": True} for t in data.get("custom_tasks", {}).get(pillar_key, [])]
-        all_tasks[pillar_key] = base + custom
+    for pk in PILLAR_META:
+        base   = [dict(t) | {"pillar": pk, "is_custom": False} for t in DEFAULT_TASKS[pk]]
+        custom = [dict(t) | {"pillar": pk, "is_custom": True}  for t in data.get("custom_tasks", {}).get(pk, [])]
+        all_tasks[pk] = base + custom
     return all_tasks
 
 def compute_max_score(all_tasks):
@@ -586,12 +648,8 @@ def get_task_key(pillar, task):
     return f"{pillar}__{task.get('id', task['name'])}"
 
 def calc_streak(history):
-    sorted_dates = sorted(
-        [datetime.date.fromisoformat(e["date"]) for e in history],
-        reverse=True
-    )
-    streak_count = 0
-    expected = datetime.date.today()
+    sorted_dates = sorted([datetime.date.fromisoformat(e["date"]) for e in history], reverse=True)
+    streak_count, expected = 0, datetime.date.today()
     for d in sorted_dates:
         if d == expected:
             streak_count += 1
@@ -600,26 +658,190 @@ def calc_streak(history):
             break
     return streak_count
 
+def time_add(base_str, hours):
+    h, m = map(int, base_str.split(":"))
+    total_minutes = h * 60 + m + int(hours * 60)
+    total_minutes = total_minutes % (24 * 60)
+    return f"{total_minutes // 60:02d}:{total_minutes % 60:02d}"
+
+def fmt_time(t_str):
+    h, m = map(int, t_str.split(":"))
+    suffix = "am" if h < 12 else "pm"
+    h12 = h % 12 or 12
+    return f"{h12}:{m:02d}{suffix}" if m > 0 else f"{h12}{suffix}"
+
+def build_schedule(cfg, day_name):
+    wake       = cfg.get("wake_time", "05:00")
+    skill_s    = cfg.get("skill_start", "07:00")
+    skill_h    = cfg.get("skill_hours", 2.0)
+    school_h   = cfg.get("school_hours", 6.0)
+
+    is_sat = day_name == "Sat"
+    is_sun = day_name == "Sun"
+
+    if is_sat:
+        skill_h_actual = min(skill_h * 2, 4.0)
+    elif is_sun:
+        skill_h_actual = 2.0
+    else:
+        skill_h_actual = skill_h
+
+    skill_e    = time_add(skill_s, skill_h_actual)
+    buf1_e     = time_add(skill_e, 0.5)
+    school_s   = buf1_e if not (is_sat or is_sun) else None
+    school_e   = time_add(school_s, school_h) if school_s else None
+
+    blocks = []
+
+    blocks.append({
+        "time": f"{fmt_time(wake)} – {fmt_time(skill_s)}",
+        "title": "Morning prep + movement",
+        "meta":  "Wake · hygiene · light breakfast · 20–30 min walk",
+        "cat":   "life",
+        "color": "#854F0B",
+        "bg":    "rgba(133,79,11,0.1)",
+    })
+
+    skill_info = SKILL_SCHEDULE[day_name]
+    blocks.append({
+        "time": f"{fmt_time(skill_s)} – {fmt_time(skill_e)}",
+        "title": f"Skill block — {skill_info['pair']}",
+        "meta":  skill_info["focus"] + f" · {skill_h_actual:.0f}h deep work · no notifications",
+        "cat":   "skill",
+        "color": skill_info["color"],
+        "bg":    f"rgba(255,255,255,0.05)",
+    })
+
+    blocks.append({
+        "time": f"{fmt_time(skill_e)} – {fmt_time(buf1_e)}",
+        "title": "Buffer — transition",
+        "meta":  "Eat · stretch · reset before school",
+        "cat":   "buffer",
+        "color": "#888780",
+        "bg":    "rgba(136,135,128,0.08)",
+    })
+
+    if not (is_sat or is_sun):
+        blocks.append({
+            "time": f"{fmt_time(school_s)} – {fmt_time(school_e)}",
+            "title": "School / BCom Finance",
+            "meta":  f"{school_h:.0f}h · Finance lectures = direct skill reinforcement",
+            "cat":   "school",
+            "color": "#3B6D11",
+            "bg":    "rgba(59,109,17,0.1)",
+        })
+        debrief_e = time_add(school_e, 0.5)
+        blocks.append({
+            "time": f"{fmt_time(school_e)} – {fmt_time(debrief_e)}",
+            "title": "Debrief walk",
+            "meta":  "Mental reset · process the day",
+            "cat":   "buffer",
+            "color": "#888780",
+            "bg":    "rgba(136,135,128,0.08)",
+        })
+        life_s = debrief_e
+        blocks.append({
+            "time": f"{fmt_time(life_s)} – {fmt_time(time_add(life_s, 3.0))}",
+            "title": "Life duties block",
+            "meta":  "Chores · errands · admin · family · meals",
+            "cat":   "life",
+            "color": "#854F0B",
+            "bg":    "rgba(133,79,11,0.1)",
+        })
+        personal_s = time_add(life_s, 3.0)
+        blocks.append({
+            "time": f"{fmt_time(personal_s)} – {fmt_time(time_add(personal_s, 2.0))}",
+            "title": "Connection + personal time",
+            "meta":  "Friends · calls · journaling · relaxed meals",
+            "cat":   "life",
+            "color": "#854F0B",
+            "bg":    "rgba(133,79,11,0.1)",
+        })
+        wind_s = time_add(personal_s, 2.0)
+        blocks.append({
+            "time": f"{fmt_time(wind_s)} – {fmt_time(time_add(wind_s, 1.0))}",
+            "title": "Wind-down routine",
+            "meta":  "No screens · plan tomorrow · reflection log",
+            "cat":   "mastery",
+            "color": "#fb7185",
+            "bg":    "rgba(251,113,133,0.08)",
+        })
+    elif is_sat:
+        blocks.append({
+            "time": f"{fmt_time(buf1_e)} – {fmt_time(time_add(buf1_e, 1.0))}",
+            "title": "Break + proper meal",
+            "meta":  "Recharge · walk outside · no screens",
+            "cat":   "buffer",
+            "color": "#888780",
+            "bg":    "rgba(136,135,128,0.08)",
+        })
+        blocks.append({
+            "time": f"{fmt_time(time_add(buf1_e, 1.0))} – {fmt_time(time_add(buf1_e, 4.0))}",
+            "title": "Life duties — batch everything",
+            "meta":  "Groceries · cleaning · errands · admin",
+            "cat":   "life",
+            "color": "#854F0B",
+            "bg":    "rgba(133,79,11,0.1)",
+        })
+        blocks.append({
+            "time": f"{fmt_time(time_add(buf1_e, 4.0))} – {fmt_time(time_add(buf1_e, 7.0))}",
+            "title": "Free / social / rest",
+            "meta":  "The reason you work hard · connection · fun",
+            "cat":   "life",
+            "color": "#854F0B",
+            "bg":    "rgba(133,79,11,0.1)",
+        })
+    else:
+        blocks.append({
+            "time": f"{fmt_time(buf1_e)} – {fmt_time(time_add(buf1_e, 2.0))}",
+            "title": "Weekly review + strategy",
+            "meta":  "Audit last week · set goals · fix weak areas · plan Mon–Fri",
+            "cat":   "mastery",
+            "color": "#fb7185",
+            "bg":    "rgba(251,113,133,0.08)",
+        })
+        blocks.append({
+            "time": f"{fmt_time(time_add(buf1_e, 2.0))} – {fmt_time(time_add(buf1_e, 5.0))}",
+            "title": "Rest + connection + recharge",
+            "meta":  "Family · friends · nature · full mental reset",
+            "cat":   "life",
+            "color": "#854F0B",
+            "bg":    "rgba(133,79,11,0.1)",
+        })
+        blocks.append({
+            "time": f"{fmt_time(time_add(buf1_e, 5.0))} – {fmt_time(time_add(buf1_e, 7.0))}",
+            "title": "Meal prep + week preparation",
+            "meta":  "Prep meals · pack bag · review Monday plan",
+            "cat":   "life",
+            "color": "#854F0B",
+            "bg":    "rgba(133,79,11,0.1)",
+        })
+
+    return blocks
+
+
 # ── Session state ──────────────────────────────────────────────────────────────
 if "data" not in st.session_state:
     st.session_state.data = load_data()
 if "saved_today" not in st.session_state:
     st.session_state.saved_today = False
-if "show_add_task" not in st.session_state:
-    st.session_state.show_add_task = {}
 
-data = st.session_state.data
-today_str = datetime.date.today().strftime("%d %b %Y").upper()
-day_name  = datetime.date.today().strftime("%A").upper()
+data       = st.session_state.data
+today      = datetime.date.today()
+today_str  = today.strftime("%d %b %Y").upper()
+day_name   = today.strftime("%A").upper()
+day_abbr   = today.strftime("%a")
 all_tasks  = get_all_tasks(data)
 max_score  = compute_max_score(all_tasks)
+history_map = {e["date"]: e for e in data["history"]}
 
-# ── HERO HEADER ────────────────────────────────────────────────────────────────
+
+# ── HERO ───────────────────────────────────────────────────────────────────────
 st.markdown(f"""
 <div class="hero-header">
   <div>
     <div class="hero-title">THE LONG GAME</div>
-    <div class="hero-sub">⚡ Life Operating System &nbsp;·&nbsp; Founder Edition &nbsp;·&nbsp; v4.0</div>
+    <div class="hero-sub">⚡ Life Operating System &nbsp;·&nbsp; Founder Edition &nbsp;·&nbsp; BCom Finance + Builder Stack</div>
   </div>
   <div class="hero-date">
     <span class="live-dot"></span> LIVE SESSION
@@ -630,37 +852,45 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # ── STAT CARDS ─────────────────────────────────────────────────────────────────
-best   = data.get("best_score", 0)
-total  = data.get("total_days", 0)
-streak = data.get("streak", 0)
+best      = data.get("best_score", 0)
+total_d   = data.get("total_days", 0)
+streak    = data.get("streak", 0)
 avg_score = round(sum(e["score"] for e in data["history"]) / len(data["history"]), 0) if data["history"] else 0
+cfg       = data.get("schedule_config", DEFAULT_DATA["schedule_config"])
+yr1_hours = round(cfg.get("skill_hours", 2.0) * 365)
 
-st.markdown("""<div class="stat-grid">
+st.markdown(f"""<div class="stat-grid">
   <div class="stat-card">
     <div class="stat-label">Current Streak</div>
-    <div class="stat-value">{}</div>
-    <div class="stat-unit">CONSECUTIVE DAYS</div>
+    <div class="stat-value">{streak}</div>
+    <div class="stat-unit">Consecutive Days</div>
   </div>
   <div class="stat-card">
     <div class="stat-label">Best Score</div>
-    <div class="stat-value">{}</div>
-    <div class="stat-unit">ALL-TIME HIGH</div>
+    <div class="stat-value">{best}</div>
+    <div class="stat-unit">All-Time High</div>
   </div>
   <div class="stat-card">
     <div class="stat-label">Days Logged</div>
-    <div class="stat-value">{}</div>
-    <div class="stat-unit">TOTAL SESSIONS</div>
+    <div class="stat-value">{total_d}</div>
+    <div class="stat-unit">Total Sessions</div>
   </div>
   <div class="stat-card">
     <div class="stat-label">Average Score</div>
-    <div class="stat-value">{}</div>
-    <div class="stat-unit">ROLLING AVERAGE</div>
+    <div class="stat-value">{int(avg_score)}</div>
+    <div class="stat-unit">Rolling Average</div>
   </div>
-</div>""".format(streak, best, total, int(avg_score)), unsafe_allow_html=True)
+  <div class="stat-card">
+    <div class="stat-label">Yr 1 Skill Hours</div>
+    <div class="stat-value">{yr1_hours}</div>
+    <div class="stat-unit">Projected @ {cfg.get('skill_hours',2):.1f}h/day</div>
+  </div>
+</div>""", unsafe_allow_html=True)
+
 
 # ── TABS ───────────────────────────────────────────────────────────────────────
-tab_today, tab_weekly, tab_monthly, tab_habits, tab_history = st.tabs([
-    "TODAY", "WEEKLY", "MONTHLY", "HABIT MAP", "HISTORY"
+tab_today, tab_schedule, tab_growth, tab_weekly, tab_habits, tab_history = st.tabs([
+    "TODAY", "SCHEDULE", "5-YEAR GROWTH", "WEEKLY", "HABIT MAP", "HISTORY"
 ])
 
 
@@ -670,25 +900,12 @@ tab_today, tab_weekly, tab_monthly, tab_habits, tab_history = st.tabs([
 with tab_today:
     col_score, col_tasks = st.columns([1, 2], gap="large")
 
-    # Collect checkbox states
-    checked = {}
-    task_list_flat = []
-    for pillar_key, tasks in all_tasks.items():
-        for t in tasks:
-            tk = get_task_key(pillar_key, t)
-            task_list_flat.append((pillar_key, t, tk))
+    task_list_flat = [(pk, t, get_task_key(pk, t)) for pk, tasks in all_tasks.items() for t in tasks]
 
-    # Score column
     with col_score:
         st.markdown('<div class="section-label">PERFORMANCE SCORE</div>', unsafe_allow_html=True)
 
-        # We need to read checkbox values — they're rendered below, so we pre-read from session state
-        score = 0
-        for pillar_key, t, tk in task_list_flat:
-            if st.session_state.get(f"cb_{tk}", False):
-                score += t["pts"]
-
-        # Normalize to 100
+        score = sum(t["pts"] for pk, t, tk in task_list_flat if st.session_state.get(f"cb_{tk}", False))
         score_pct = round((score / max_score) * 100) if max_score > 0 else 0
 
         if score_pct >= 85:
@@ -701,7 +918,7 @@ with tab_today:
         st.markdown(f"""
         <div class="score-card">
           <div class="score-number">{score_pct}</div>
-          <div class="score-denom">/ 100 — ({score} / {max_score} RAW PTS)</div>
+          <div class="score-denom">/ 100 &nbsp;·&nbsp; {score} / {max_score} raw pts</div>
           <div class="score-verdict {verdict_cls}">{verdict_txt}</div>
           <div class="progress-track">
             <div class="progress-fill {bar_cls}" style="width:{score_pct}%"></div>
@@ -710,501 +927,552 @@ with tab_today:
         """, unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
-
-        # Pillar breakdown
         st.markdown('<div class="section-label">PILLAR BREAKDOWN</div>', unsafe_allow_html=True)
-        pillar_scores_html = ""
-        for pillar_key, meta in PILLAR_META.items():
-            tasks_p = all_tasks[pillar_key]
-            pillar_max = sum(t["pts"] for t in tasks_p)
-            pillar_earned = sum(t["pts"] for t in tasks_p if st.session_state.get(f"cb_{get_task_key(pillar_key, t)}", False))
-            pct = round((pillar_earned / pillar_max) * 100) if pillar_max > 0 else 0
-            pillar_scores_html += f"""
+
+        pillar_html = ""
+        for pk, meta in PILLAR_META.items():
+            tasks_p = all_tasks[pk]
+            p_max    = sum(t["pts"] for t in tasks_p)
+            p_earned = sum(t["pts"] for t in tasks_p if st.session_state.get(f"cb_{get_task_key(pk, t)}", False))
+            pct      = round((p_earned / p_max) * 100) if p_max > 0 else 0
+            pillar_html += f"""
             <div class="pillar-score-row">
-              <div class="pillar-score-name">{meta['icon']} {pillar_key.upper()}</div>
+              <div class="pillar-score-name">{meta['icon']} {pk.upper()}</div>
               <div class="pillar-score-track">
                 <div class="pillar-score-fill {meta['fill_cls']}" style="width:{pct}%"></div>
               </div>
               <div class="pillar-score-pct">{pct}%</div>
             </div>"""
-        st.markdown(f'<div style="animation:fadeIn 0.5s ease">{pillar_scores_html}</div>', unsafe_allow_html=True)
+        st.markdown(pillar_html, unsafe_allow_html=True)
 
-    # Task pillars column
+        st.markdown("<br>", unsafe_allow_html=True)
+        skill_today = SKILL_SCHEDULE.get(day_abbr, SKILL_SCHEDULE["Mon"])
+        st.markdown(f"""
+        <div style="background:#1e293b; border-radius:10px; padding:1rem 1.25rem; border:1px solid rgba(255,255,255,0.07); border-left:3px solid {skill_today['color']}">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.55rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:0.4rem">TODAY'S SKILL PAIR</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:{skill_today['color']}; letter-spacing:0.08em">{skill_today['pair']}</div>
+          <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:0.78rem; color:rgba(255,255,255,0.5); margin-top:0.3rem">{skill_today['focus']}</div>
+        </div>
+        """, unsafe_allow_html=True)
+
     with col_tasks:
         st.markdown('<div class="section-label">DAILY EXECUTION PROTOCOL</div>', unsafe_allow_html=True)
 
-        for pillar_key, meta in PILLAR_META.items():
-            tasks_p = all_tasks[pillar_key]
-            pillar_max = sum(t["pts"] for t in tasks_p)
-            pillar_earned = sum(t["pts"] for t in tasks_p if st.session_state.get(f"cb_{get_task_key(pillar_key, t)}", False))
+        for pk, meta in PILLAR_META.items():
+            tasks_p  = all_tasks[pk]
+            p_max    = sum(t["pts"] for t in tasks_p)
+            p_earned = sum(t["pts"] for t in tasks_p if st.session_state.get(f"cb_{get_task_key(pk, t)}", False))
 
-            tag_html = f'<span class="pillar-header-tag {meta["tag_cls"]}">{pillar_key.upper()} · {pillar_earned}/{pillar_max} PTS</span>'
             st.markdown(f"""
             <div class="pillar-panel">
               <div class="pillar-header">
                 <div class="pillar-header-name">{meta['icon']} {meta['label'].upper()}</div>
-                {tag_html}
+                <span class="pillar-header-tag {meta['tag_cls']}">{pk.upper()} · {p_earned}/{p_max} PTS</span>
               </div>
             </div>
             """, unsafe_allow_html=True)
 
-            # Checkboxes for each task
             for t in tasks_p:
-                tk = get_task_key(pillar_key, t)
-                col_cb, col_pts = st.columns([5, 1])
-                with col_cb:
-                    checked[tk] = st.checkbox(
-                        t["name"],
-                        key=f"cb_{tk}",
-                        help=f"+{t['pts']} pts"
-                    )
-                with col_pts:
+                tk = get_task_key(pk, t)
+                c1, c2 = st.columns([5, 1])
+                with c1:
+                    st.checkbox(t["name"], key=f"cb_{tk}", help=f"+{t['pts']} pts")
+                with c2:
                     st.markdown(
                         f'<div style="padding-top:0.45rem; font-family:JetBrains Mono,monospace; '
-                        f'font-size:0.65rem; color:#f9c74f; font-weight:700; letter-spacing:0.08em;">'
-                        f'+{t["pts"]}</div>',
+                        f'font-size:0.65rem; color:#f9c74f; font-weight:700;">+{t["pts"]}</div>',
                         unsafe_allow_html=True
                     )
 
-            # Add Task toggle
-            show_key = f"show_add_{pillar_key}"
+            show_key = f"show_add_{pk}"
             if show_key not in st.session_state:
                 st.session_state[show_key] = False
 
-            col_add, _ = st.columns([2, 5])
-            with col_add:
-                if st.button(f"+ Add Task", key=f"btn_add_{pillar_key}"):
+            ca, _ = st.columns([2, 5])
+            with ca:
+                if st.button(f"+ Add", key=f"btn_add_{pk}"):
                     st.session_state[show_key] = not st.session_state[show_key]
 
             if st.session_state[show_key]:
-                with st.container():
-                    st.markdown('<div class="add-task-form">', unsafe_allow_html=True)
-                    c1, c2, c3 = st.columns([4, 1, 1])
-                    with c1:
-                        new_name = st.text_input("Task Name", key=f"new_name_{pillar_key}", placeholder="e.g. Cold shower", label_visibility="collapsed")
-                    with c2:
-                        new_pts = st.number_input("Pts", min_value=1, max_value=50, value=10, key=f"new_pts_{pillar_key}", label_visibility="collapsed")
-                    with c3:
-                        if st.button("✓ Save", key=f"save_task_{pillar_key}"):
-                            if new_name.strip():
-                                custom_id = f"custom_{pillar_key}_{len(data['custom_tasks'].get(pillar_key, []))}"
-                                if pillar_key not in data["custom_tasks"]:
-                                    data["custom_tasks"][pillar_key] = []
-                                data["custom_tasks"][pillar_key].append({
-                                    "name": new_name.strip(),
-                                    "pts": int(new_pts),
-                                    "id": custom_id
-                                })
-                                save_data(data)
-                                st.session_state.data = data
-                                st.session_state[show_key] = False
-                                st.rerun()
-                    st.markdown('</div>', unsafe_allow_html=True)
+                c1, c2, c3 = st.columns([4, 1, 1])
+                with c1:
+                    new_name = st.text_input("Task", key=f"new_name_{pk}", placeholder="Task name", label_visibility="collapsed")
+                with c2:
+                    new_pts = st.number_input("Pts", min_value=1, max_value=50, value=10, key=f"new_pts_{pk}", label_visibility="collapsed")
+                with c3:
+                    if st.button("✓", key=f"save_{pk}"):
+                        if new_name.strip():
+                            cid = f"custom_{pk}_{len(data['custom_tasks'].get(pk, []))}"
+                            if pk not in data["custom_tasks"]:
+                                data["custom_tasks"][pk] = []
+                            data["custom_tasks"][pk].append({"name": new_name.strip(), "pts": int(new_pts), "id": cid})
+                            save_data(data)
+                            st.session_state.data = data
+                            st.session_state[show_key] = False
+                            st.rerun()
 
-            st.markdown("<div style='margin-bottom:0.75rem'></div>", unsafe_allow_html=True)
+            st.markdown("<div style='margin-bottom:0.5rem'></div>", unsafe_allow_html=True)
 
     st.markdown("---")
-
-    # Reflection + commit
     col_ref, col_quote = st.columns([2, 1], gap="large")
 
     with col_ref:
         st.markdown('<div class="section-label">CEO REFLECTION LOG</div>', unsafe_allow_html=True)
         reflection = st.text_area(
             "WHAT DID I LEARN TODAY?",
-            placeholder="Write your daily reflection here...\n\nWhat worked? What would you do differently? What insight did you unlock?",
-            height=150,
-            label_visibility="visible"
+            placeholder="Write your daily reflection...\n\nWhat worked? What would you do differently? What insight did you unlock today?",
+            height=140,
         )
-        col_btn, col_msg = st.columns([1, 3])
-        with col_btn:
-            save_clicked = st.button("⟶  COMMIT DAY", use_container_width=True)
-
-        if save_clicked:
-            if not reflection.strip():
-                st.warning("Add a reflection before committing the day.")
-            else:
-                task_snapshot = {}
-                for pillar_key, t, tk in task_list_flat:
-                    task_snapshot[tk] = st.session_state.get(f"cb_{tk}", False)
-
-                record = {
-                    "date":       datetime.date.today().isoformat(),
-                    "score":      score_pct,
-                    "raw_score":  score,
-                    "max_score":  max_score,
-                    "tasks":      task_snapshot,
-                    "reflection": reflection.strip(),
-                }
-                existing_dates = [e["date"] for e in data["history"]]
-                if record["date"] in existing_dates:
-                    idx = existing_dates.index(record["date"])
-                    data["history"][idx] = record
+        c_btn, _ = st.columns([1, 3])
+        with c_btn:
+            if st.button("⟶  COMMIT DAY", use_container_width=True):
+                if not reflection.strip():
+                    st.warning("Add a reflection before committing the day.")
                 else:
-                    data["history"].append(record)
-
-                data["best_score"] = max(data.get("best_score", 0), score_pct)
-                data["total_days"] = len(data["history"])
-                data["streak"]     = calc_streak(data["history"])
-                save_data(data)
-                st.session_state.data = data
-                st.session_state.saved_today = True
-                st.rerun()
+                    task_snap = {tk: st.session_state.get(f"cb_{tk}", False) for _, _, tk in task_list_flat}
+                    record = {
+                        "date": today.isoformat(),
+                        "score": score_pct,
+                        "raw_score": score,
+                        "max_score": max_score,
+                        "tasks": task_snap,
+                        "reflection": reflection.strip(),
+                    }
+                    existing = [e["date"] for e in data["history"]]
+                    if record["date"] in existing:
+                        data["history"][existing.index(record["date"])] = record
+                    else:
+                        data["history"].append(record)
+                    data["best_score"] = max(data.get("best_score", 0), score_pct)
+                    data["total_days"] = len(data["history"])
+                    data["streak"]     = calc_streak(data["history"])
+                    save_data(data)
+                    st.session_state.data = data
+                    st.session_state.saved_today = True
+                    st.rerun()
 
         if st.session_state.saved_today:
             st.markdown("""
             <div style="margin-top:0.75rem; padding:0.85rem 1.1rem;
-                        background:rgba(34,197,94,0.08); border:1.5px solid rgba(34,197,94,0.2);
-                        border-left:4px solid #22c55e; border-radius:8px;
-                        font-family:'Plus Jakarta Sans',sans-serif; font-size:0.83rem;
-                        color:#4ade80; font-weight:600;">
-              ✓ Day committed — entry saved to your history
+                        background:rgba(34,197,94,0.08); border-left:4px solid #22c55e;
+                        border-radius:8px; font-size:0.83rem; color:#4ade80; font-weight:600;">
+              ✓ Day committed — entry saved
             </div>""", unsafe_allow_html=True)
 
     with col_quote:
         st.markdown('<div class="section-label">FOUNDER SIGNAL</div>', unsafe_allow_html=True)
         quote = random.choice(CEO_QUOTES)
         st.markdown(f"""
-        <div class="quote-card" style="animation: fadeIn 0.6s ease; margin-top:0.2rem;">
-          <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:0.95rem;
-                      line-height:1.8; color:#111827; font-style:italic; font-weight:500;">
-            "{quote}"
-          </div>
-          <div style="margin-top:1rem; font-family:'JetBrains Mono',monospace;
-                      font-size:0.58rem; letter-spacing:0.2em; color:rgba(17,24,39,0.45);
-                      text-transform:uppercase;">
-            — THE LONG GAME OS
-          </div>
+        <div class="quote-card">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:0.93rem; line-height:1.8; color:#111827; font-style:italic; font-weight:500;">"{quote}"</div>
+          <div style="margin-top:1rem; font-family:'JetBrains Mono',monospace; font-size:0.55rem; letter-spacing:0.2em; color:rgba(17,24,39,0.45); text-transform:uppercase;">— THE LONG GAME OS</div>
         </div>
         """, unsafe_allow_html=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 2 — WEEKLY
+# TAB 2 — SCHEDULE
+# ══════════════════════════════════════════════════════════════════════════════
+with tab_schedule:
+    st.markdown('<div class="section-label">TIME ALLOCATION SETTINGS</div>', unsafe_allow_html=True)
+
+    cfg = data.get("schedule_config", dict(DEFAULT_DATA["schedule_config"]))
+
+    col_s1, col_s2, col_s3, col_s4 = st.columns(4)
+    with col_s1:
+        wake_options = [f"{h:02d}:00" for h in range(4, 9)]
+        wake_idx = wake_options.index(cfg.get("wake_time", "05:00")) if cfg.get("wake_time", "05:00") in wake_options else 1
+        new_wake = st.selectbox("WAKE TIME", wake_options, index=wake_idx)
+    with col_s2:
+        skill_start_options = [f"{h:02d}:00" for h in range(5, 11)]
+        ss_val = cfg.get("skill_start", "07:00")
+        ss_idx = skill_start_options.index(ss_val) if ss_val in skill_start_options else 2
+        new_skill_start = st.selectbox("SKILL BLOCK START", skill_start_options, index=ss_idx)
+    with col_s3:
+        new_skill_h = st.slider("SKILL HOURS / DAY", min_value=1.0, max_value=4.0, value=float(cfg.get("skill_hours", 2.0)), step=0.5)
+    with col_s4:
+        new_school_h = st.slider("SCHOOL / WORK HOURS", min_value=4.0, max_value=10.0, value=float(cfg.get("school_hours", 6.0)), step=0.5)
+
+    if st.button("SAVE SCHEDULE CONFIG"):
+        data["schedule_config"] = {
+            "wake_time":   new_wake,
+            "skill_start": new_skill_start,
+            "skill_hours": new_skill_h,
+            "school_hours": new_school_h,
+        }
+        save_data(data)
+        st.session_state.data = data
+        cfg = data["schedule_config"]
+        st.success("Schedule saved.")
+        st.rerun()
+
+    # Time budget summary
+    skill_h   = float(cfg.get("skill_hours", 2.0))
+    school_h  = float(cfg.get("school_hours", 6.0))
+    sleep_h   = 7.0
+    life_h    = 9.0
+    buffer_h  = 24.0 - skill_h - school_h - sleep_h - life_h
+    buffer_h  = max(0, buffer_h)
+
+    budget_html = f"""
+    <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin:1.25rem 0 2rem;">
+      <div class="stat-card"><div class="stat-label">Skill block</div><div class="stat-value" style="color:#378ADD">{skill_h:.1f}h</div></div>
+      <div class="stat-card"><div class="stat-label">School / work</div><div class="stat-value" style="color:#3B6D11">{school_h:.1f}h</div></div>
+      <div class="stat-card"><div class="stat-label">Sleep</div><div class="stat-value" style="color:#534AB7">7h</div></div>
+      <div class="stat-card"><div class="stat-label">Life duties</div><div class="stat-value" style="color:#854F0B">9h</div></div>
+      <div class="stat-card"><div class="stat-label">Buffer / rest</div><div class="stat-value" style="color:#888780">{buffer_h:.1f}h</div></div>
+      <div class="stat-card"><div class="stat-label">Total</div><div class="stat-value">24h</div></div>
+    </div>"""
+    st.markdown(budget_html, unsafe_allow_html=True)
+
+    st.markdown('<div class="section-label">DAILY SCHEDULE — SELECT DAY</div>', unsafe_allow_html=True)
+
+    day_list   = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    sel_day_idx = day_list.index(day_abbr) if day_abbr in day_list else 0
+    sel_day     = st.radio("Day", day_list, index=sel_day_idx, horizontal=True, label_visibility="collapsed")
+
+    blocks = build_schedule(cfg, sel_day)
+
+    st.markdown('<div style="background:#1e293b; border-radius:14px; padding:1.5rem; border:1px solid rgba(255,255,255,0.07);">', unsafe_allow_html=True)
+    for b in blocks:
+        st.markdown(f"""
+        <div class="schedule-block">
+          <div class="schedule-time">{b['time']}</div>
+          <div class="schedule-content" style="background:{b['bg']}; border-left-color:{b['color']}">
+            <div class="schedule-title">{b['title']}</div>
+            <div class="schedule-meta">{b['meta']}</div>
+          </div>
+        </div>
+        """, unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # Legend
+    st.markdown("""
+    <div style="display:flex; gap:1.5rem; margin-top:1rem; font-family:'JetBrains Mono',monospace; font-size:0.6rem; color:rgba(255,255,255,0.35); letter-spacing:0.1em; flex-wrap:wrap;">
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#378ADD;vertical-align:middle;margin-right:5px"></span>SKILL</span>
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#3B6D11;vertical-align:middle;margin-right:5px"></span>SCHOOL</span>
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#854F0B;vertical-align:middle;margin-right:5px"></span>LIFE</span>
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#fb7185;vertical-align:middle;margin-right:5px"></span>MASTERY</span>
+      <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#888780;vertical-align:middle;margin-right:5px"></span>BUFFER</span>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# TAB 3 — 5-YEAR GROWTH
+# ══════════════════════════════════════════════════════════════════════════════
+with tab_growth:
+    st.markdown('<div class="section-label">PROJECTED 5-YEAR SKILL GROWTH</div>', unsafe_allow_html=True)
+
+    cfg_g     = data.get("schedule_config", DEFAULT_DATA["schedule_config"])
+    skill_h_g = float(cfg_g.get("skill_hours", 2.0))
+
+    # Calculate projected hours per skill
+    total_skill_hours_per_week = skill_h_g * 5 + (skill_h_g * 2) + 2  # Mon-Fri + Sat double + Sun review
+    skill_ratios = {"Coding": 3, "Charts": 2, "Communication": 2, "Finance": 1, "Art": 2}
+    ratio_sum = sum(skill_ratios.values())
+
+    weekly_per_skill = {k: (v / ratio_sum) * total_skill_hours_per_week for k, v in skill_ratios.items()}
+    yearly_per_skill = {k: v * 52 for k, v in weekly_per_skill.items()}
+
+    years = [0, 1, 2, 3, 4, 5]
+
+    # Stat summary row
+    total_5yr = round(skill_h_g * 365 * 5)
+    coding_5yr = round(yearly_per_skill["Coding"] * 5)
+    days_tracked = len(data["history"])
+    actual_hours = round(days_tracked * skill_h_g)
+
+    st.markdown(f"""
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:2rem;">
+      <div class="stat-card"><div class="stat-label">5-Year Total Hours</div><div class="stat-value" style="color:#f9c74f">{total_5yr:,}</div><div class="stat-unit">All skills combined</div></div>
+      <div class="stat-card"><div class="stat-label">Coding Hours (5yr)</div><div class="stat-value" style="color:#378ADD">{coding_5yr:,}</div><div class="stat-unit">Primary leverage skill</div></div>
+      <div class="stat-card"><div class="stat-label">Days Tracked</div><div class="stat-value" style="color:#4ade80">{days_tracked}</div><div class="stat-unit">Real sessions logged</div></div>
+      <div class="stat-card"><div class="stat-label">Hours Invested</div><div class="stat-value" style="color:#c084fc">{actual_hours}</div><div class="stat-unit">Actual @ {skill_h_g:.1f}h/day</div></div>
+    </div>""", unsafe_allow_html=True)
+
+    # Growth chart using Plotly via streamlit
+    try:
+        import plotly.graph_objects as go
+
+        fig = go.Figure()
+        for skill, color in SKILL_COLORS.items():
+            y_vals = [round(yearly_per_skill[skill] * yr) for yr in years]
+            fig.add_trace(go.Scatter(
+                x=[f"Year {y}" if y > 0 else "Now" for y in years],
+                y=y_vals,
+                name=skill,
+                line=dict(color=color, width=2.5),
+                mode="lines+markers",
+                marker=dict(size=7),
+                fill="tozeroy",
+                fillcolor=color.replace("#", "rgba(") + ",0.05)" if "#" in color else color,
+            ))
+            # Override fill properly
+            fig.data[-1].fillcolor = f"rgba({int(color[1:3],16)},{int(color[3:5],16)},{int(color[5:7],16)},0.06)"
+
+        fig.update_layout(
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)",
+            font=dict(family="JetBrains Mono", color="rgba(255,255,255,0.5)", size=11),
+            legend=dict(
+                orientation="h",
+                yanchor="bottom", y=1.02,
+                xanchor="left", x=0,
+                font=dict(size=11),
+                bgcolor="rgba(0,0,0,0)",
+            ),
+            xaxis=dict(gridcolor="rgba(255,255,255,0.06)", showline=False, tickfont=dict(size=11)),
+            yaxis=dict(gridcolor="rgba(255,255,255,0.06)", showline=False, title="Cumulative Hours", titlefont=dict(size=10)),
+            margin=dict(l=10, r=10, t=40, b=10),
+            height=320,
+        )
+        st.plotly_chart(fig, use_container_width=True)
+    except ImportError:
+        # Fallback: simple bar chart with st metrics
+        st.info("Install plotly for the growth chart: pip install plotly")
+        for skill, color in SKILL_COLORS.items():
+            yr5 = round(yearly_per_skill[skill] * 5)
+            pct = min(100, round((yr5 / 1500) * 100))
+            st.markdown(f"""
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+              <div style="width:120px; font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:{color}">{skill.upper()}</div>
+              <div style="flex:1; background:rgba(255,255,255,0.07); border-radius:99px; height:8px; overflow:hidden">
+                <div style="width:{pct}%; height:100%; background:{color}; border-radius:99px"></div>
+              </div>
+              <div style="width:60px; font-family:'Bebas Neue',sans-serif; font-size:1rem; color:{color}">{yr5}h</div>
+            </div>""", unsafe_allow_html=True)
+
+    # Proficiency bars at year 5
+    st.markdown('<div class="section-label" style="margin-top:1.5rem">PROJECTED PROFICIENCY AT YEAR 5</div>', unsafe_allow_html=True)
+    proficiency = {"Coding": 92, "Charts": 80, "Communication": 81, "Finance": 62, "Art": 78}
+    prof_desc   = {
+        "Coding":        f"~{round(yearly_per_skill['Coding']*5):,}h · elite builder · fintech systems",
+        "Charts":        f"~{round(yearly_per_skill['Charts']*5):,}h · strong analyst · visual finance",
+        "Communication": f"~{round(yearly_per_skill['Communication']*5):,}h · confident speaker · pitching",
+        "Finance":       f"~{round(yearly_per_skill['Finance']*5):,}h · solid foundation · BCom + practice",
+        "Art":           f"~{round(yearly_per_skill['Art']*5):,}h · distinct identity · creative brand",
+    }
+
+    bars_html = ""
+    for skill, pct in proficiency.items():
+        color = SKILL_COLORS[skill]
+        actual_pct = min(100, round(pct * (skill_h_g / 2.0)))
+        bars_html += f"""
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+          <div style="width:130px; font-family:'JetBrains Mono',monospace; font-size:0.62rem; color:{color}; text-transform:uppercase;">{skill}</div>
+          <div style="flex:1; background:rgba(255,255,255,0.07); border-radius:99px; height:8px; overflow:hidden">
+            <div style="width:{actual_pct}%; height:100%; background:{color}; border-radius:99px;"></div>
+          </div>
+          <div style="width:38px; font-family:'Bebas Neue',sans-serif; font-size:1.1rem; color:{color}; text-align:right">{actual_pct}%</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.55rem; color:rgba(255,255,255,0.35); flex:1">{prof_desc[skill]}</div>
+        </div>"""
+
+    st.markdown(f'<div style="background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid rgba(255,255,255,0.07);">{bars_html}</div>', unsafe_allow_html=True)
+
+    # Milestones
+    st.markdown('<div class="section-label" style="margin-top:2rem">YEAR-BY-YEAR MILESTONES</div>', unsafe_allow_html=True)
+
+    for yr, ms in MILESTONES.items():
+        hrs_logged = round(yearly_per_skill.get("Coding", 0) * yr)
+        items_html = "".join(f'<div style="font-family:Plus Jakarta Sans,sans-serif; font-size:0.8rem; color:rgba(255,255,255,0.65); padding:3px 0; padding-left:14px; position:relative"><span style="position:absolute;left:0;color:{ms[\'color\']}">›</span>{item}</div>' for item in ms["items"])
+
+        col_yr, col_content = st.columns([1, 4], gap="small")
+        with col_yr:
+            st.markdown(f"""
+            <div style="background:#1e293b; border-radius:10px; padding:1.1rem; border:1px solid rgba(255,255,255,0.07); border-top:3px solid {ms['color']}; text-align:center; height:100%">
+              <div style="font-family:'JetBrains Mono',monospace; font-size:0.55rem; color:rgba(255,255,255,0.3); letter-spacing:0.2em; text-transform:uppercase">Year</div>
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:3.5rem; color:{ms['color']}; line-height:1">{yr}</div>
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:1.1rem; color:{ms['color']}; letter-spacing:0.1em">{ms['title']}</div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:0.55rem; color:rgba(255,255,255,0.25); margin-top:0.5rem">{hrs_logged:,}h coding</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with col_content:
+            st.markdown(f"""
+            <div style="background:#1e293b; border-radius:10px; padding:1.25rem; border:1px solid rgba(255,255,255,0.07); height:100%">
+              {items_html}
+            </div>
+            """, unsafe_allow_html=True)
+        st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
+
+    # Hidden formula
+    st.markdown("""
+    <div style="margin-top:2rem; background:#1e293b; border-radius:12px; padding:1.5rem 2rem; border:1px solid rgba(255,255,255,0.07); text-align:center;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:0.58rem; letter-spacing:0.3em; text-transform:uppercase; color:rgba(255,255,255,0.25); margin-bottom:1rem">THE HIDDEN FORMULA</div>
+      <div style="display:flex; justify-content:center; gap:2rem; flex-wrap:wrap;">
+        <div style="text-align:center"><div style="font-family:'Bebas Neue',sans-serif; font-size:1.5rem; color:#378ADD; letter-spacing:0.1em">CODE</div><div style="font-family:'JetBrains Mono',monospace; font-size:0.6rem; color:rgba(255,255,255,0.3); letter-spacing:0.15em">= BUILD</div></div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:1.5rem; color:rgba(255,255,255,0.15); align-self:center">+</div>
+        <div style="text-align:center"><div style="font-family:'Bebas Neue',sans-serif; font-size:1.5rem; color:#1D9E75; letter-spacing:0.1em">CHARTS</div><div style="font-family:'JetBrains Mono',monospace; font-size:0.6rem; color:rgba(255,255,255,0.3); letter-spacing:0.15em">= UNDERSTAND</div></div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:1.5rem; color:rgba(255,255,255,0.15); align-self:center">+</div>
+        <div style="text-align:center"><div style="font-family:'Bebas Neue',sans-serif; font-size:1.5rem; color:#D85A30; letter-spacing:0.1em">COMMS</div><div style="font-family:'JetBrains Mono',monospace; font-size:0.6rem; color:rgba(255,255,255,0.3); letter-spacing:0.15em">= INFLUENCE</div></div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:1.5rem; color:rgba(255,255,255,0.15); align-self:center">+</div>
+        <div style="text-align:center"><div style="font-family:'Bebas Neue',sans-serif; font-size:1.5rem; color:#534AB7; letter-spacing:0.1em">FINANCE</div><div style="font-family:'JetBrains Mono',monospace; font-size:0.6rem; color:rgba(255,255,255,0.3); letter-spacing:0.15em">= DECIDE</div></div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:1.5rem; color:rgba(255,255,255,0.15); align-self:center">+</div>
+        <div style="text-align:center"><div style="font-family:'Bebas Neue',sans-serif; font-size:1.5rem; color:#BA7517; letter-spacing:0.1em">ART</div><div style="font-family:'JetBrains Mono',monospace; font-size:0.6rem; color:rgba(255,255,255,0.3); letter-spacing:0.15em">= DIFFERENTIATE</div></div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:1.5rem; color:rgba(255,255,255,0.15); align-self:center">=</div>
+        <div style="text-align:center"><div style="font-family:'Bebas Neue',sans-serif; font-size:1.5rem; color:#f9c74f; letter-spacing:0.1em">FOUNDER LEVERAGE</div><div style="font-family:'JetBrains Mono',monospace; font-size:0.6rem; color:rgba(255,255,255,0.3); letter-spacing:0.15em">THE REAL GOAL</div></div>
+      </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# TAB 4 — WEEKLY
 # ══════════════════════════════════════════════════════════════════════════════
 with tab_weekly:
     st.markdown('<div class="section-label">WEEKLY PERFORMANCE</div>', unsafe_allow_html=True)
 
-    today = datetime.date.today()
-    week_start = today - datetime.timedelta(days=today.weekday())  # Monday
-    week_days = [week_start + datetime.timedelta(days=i) for i in range(7)]
+    week_start = today - datetime.timedelta(days=today.weekday())
+    week_days  = [week_start + datetime.timedelta(days=i) for i in range(7)]
     day_labels = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
 
-    history_map = {e["date"]: e for e in data["history"]}
-
-    # Weekly bar chart — use fixed pixel heights (120px max bar) to avoid % height collapse in Streamlit
-    MAX_BAR_PX = 120
-    bars_html = '<div style="display:flex; align-items:flex-end; gap:8px; height:{}px; padding:0 0 0 0;">'.format(MAX_BAR_PX + 36)
+    MAX_BAR = 120
+    bars_html = f'<div style="display:flex; align-items:flex-end; gap:8px; height:{MAX_BAR+40}px;">'
     for i, d in enumerate(week_days):
-        ds = d.isoformat()
-        entry = history_map.get(ds)
+        entry    = history_map.get(d.isoformat())
         is_today = (d == today)
-        today_border = "border: 2px solid #f9c74f;" if is_today else ""
+        border   = "border: 2px solid #f9c74f;" if is_today else ""
         if entry:
             sc = entry["score"]
-            bar_px = max(6, int((sc / 100) * MAX_BAR_PX))
-            if sc >= 85:
-                bar_bg = "linear-gradient(180deg,#4ade80,#22c55e)"
-            elif sc >= 60:
-                bar_bg = "linear-gradient(180deg,#f9c74f,#f8961e)"
-            else:
-                bar_bg = "linear-gradient(180deg,#fca5a5,#ef4444)"
-            score_lbl = f'<div style="font-family:JetBrains Mono,monospace;font-size:0.6rem;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:4px;letter-spacing:0.05em">{sc}</div>'
+            px = max(6, int((sc / 100) * MAX_BAR))
+            bg = "linear-gradient(180deg,#4ade80,#22c55e)" if sc >= 85 else ("linear-gradient(180deg,#f9c74f,#f8961e)" if sc >= 60 else "linear-gradient(180deg,#fca5a5,#ef4444)")
+            lbl = f'<div style="font-family:JetBrains Mono,monospace;font-size:0.6rem;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:4px">{sc}</div>'
         else:
-            bar_px = 4
-            bar_bg = "rgba(255,255,255,0.07)"
-            score_lbl = '<div style="height:18px"></div>'
+            px, bg, lbl = 4, "rgba(255,255,255,0.07)", '<div style="height:18px"></div>'
 
         bars_html += f"""
-        <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%;">
-          {score_lbl}
-          <div style="width:100%; height:{bar_px}px; background:{bar_bg}; border-radius:5px 5px 0 0; {today_border} box-sizing:border-box;"></div>
+        <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%">
+          {lbl}
+          <div style="width:100%; height:{px}px; background:{bg}; border-radius:5px 5px 0 0; {border} box-sizing:border-box;"></div>
           <div style="font-family:JetBrains Mono,monospace; font-size:0.55rem; color:{'#f9c74f' if is_today else 'rgba(255,255,255,0.3)'}; letter-spacing:0.1em; margin-top:6px; text-transform:uppercase; font-weight:{'700' if is_today else '400'}">{day_labels[i]}</div>
         </div>"""
     bars_html += "</div>"
 
-    col_wk1, col_wk2 = st.columns([2, 1], gap="large")
-    with col_wk1:
-        st.markdown(f'''
-        <div style="background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid rgba(255,255,255,0.07);">
-          <div style="font-family:JetBrains Mono,monospace; font-size:0.58rem; letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:1.2rem;">SCORE BY DAY — CURRENT WEEK</div>
-          {bars_html}
-        </div>
-        ''', unsafe_allow_html=True)
-
-    with col_wk2:
+    col_w1, col_w2 = st.columns([2, 1], gap="large")
+    with col_w1:
+        st.markdown(f'<div style="background:#1e293b; border-radius:12px; padding:1.5rem; border:1px solid rgba(255,255,255,0.07);"><div class="analytics-card-title">SCORE BY DAY — CURRENT WEEK</div>{bars_html}</div>', unsafe_allow_html=True)
+    with col_w2:
         week_entries = [history_map[d.isoformat()] for d in week_days if d.isoformat() in history_map]
-        days_logged  = len(week_entries)
-        week_avg     = round(sum(e["score"] for e in week_entries) / days_logged, 0) if week_entries else 0
-        elite_days   = sum(1 for e in week_entries if e["score"] >= 85)
+        days_log     = len(week_entries)
+        w_avg        = round(sum(e["score"] for e in week_entries) / days_log, 0) if week_entries else 0
+        elite_d      = sum(1 for e in week_entries if e["score"] >= 85)
 
         st.markdown(f"""
         <div class="analytics-card">
           <div class="analytics-card-title">WEEK SUMMARY</div>
-          <div style="margin-bottom:1.2rem">
-            <div class="stat-label">Days Logged This Week</div>
-            <div style="font-family:'Bebas Neue',sans-serif; font-size:2.8rem; color:#f1f5f9; line-height:1">{days_logged}<span style="font-size:1.2rem; color:rgba(255,255,255,0.3)"> / 7</span></div>
-          </div>
-          <div style="margin-bottom:1.2rem">
-            <div class="stat-label">Weekly Average</div>
-            <div style="font-family:'Bebas Neue',sans-serif; font-size:2.8rem; color:#f9c74f; line-height:1">{int(week_avg)}</div>
-          </div>
-          <div>
-            <div class="stat-label">Elite Days (85+)</div>
-            <div style="font-family:'Bebas Neue',sans-serif; font-size:2.8rem; color:#4ade80; line-height:1">{elite_days}</div>
-          </div>
-        </div>
-        """, unsafe_allow_html=True)
+          <div style="margin-bottom:1.2rem"><div class="stat-label">Days Logged</div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:2.6rem; color:#f1f5f9; line-height:1">{days_log}<span style="font-size:1.2rem; color:rgba(255,255,255,0.3)"> / 7</span></div></div>
+          <div style="margin-bottom:1.2rem"><div class="stat-label">Weekly Average</div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:2.6rem; color:#f9c74f; line-height:1">{int(w_avg)}</div></div>
+          <div><div class="stat-label">Elite Days (85+)</div>
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:2.6rem; color:#4ade80; line-height:1">{elite_d}</div></div>
+        </div>""", unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown('<div class="section-label">PILLAR PERFORMANCE — THIS WEEK</div>', unsafe_allow_html=True)
 
-    # Pillar breakdown for the week
     col_pillars = st.columns(len(PILLAR_META), gap="small")
-    for i, (pillar_key, meta) in enumerate(PILLAR_META.items()):
-        pillar_tasks = all_tasks[pillar_key]
-        total_possible = sum(t["pts"] for t in pillar_tasks) * max(1, days_logged)
-        total_earned   = 0
-        for entry in week_entries:
-            for t in pillar_tasks:
-                tk = get_task_key(pillar_key, t)
-                if entry.get("tasks", {}).get(tk, False):
-                    total_earned += t["pts"]
-        completion_pct = round((total_earned / total_possible) * 100) if total_possible > 0 else 0
-
+    for i, (pk, meta) in enumerate(PILLAR_META.items()):
+        tasks_p       = all_tasks[pk]
+        total_possible = sum(t["pts"] for t in tasks_p) * max(1, days_log)
+        total_earned   = sum(
+            t["pts"]
+            for entry in week_entries
+            for t in tasks_p
+            if entry.get("tasks", {}).get(get_task_key(pk, t), False)
+        )
+        cpct = round((total_earned / total_possible) * 100) if total_possible > 0 else 0
         with col_pillars[i]:
             st.markdown(f"""
             <div style="background:#1e293b; border-radius:10px; padding:1.1rem; border:1px solid rgba(255,255,255,0.07); text-align:center;">
-              <div style="font-size:1.5rem; margin-bottom:0.4rem">{meta['icon']}</div>
-              <div style="font-family:'JetBrains Mono',monospace; font-size:0.55rem; color:rgba(255,255,255,0.35); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:0.6rem">{pillar_key.upper()}</div>
-              <div style="font-family:'Bebas Neue',sans-serif; font-size:2rem; color:{meta['color']}; line-height:1">{completion_pct}%</div>
+              <div style="font-size:1.4rem; margin-bottom:0.4rem">{meta['icon']}</div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:0.52rem; color:rgba(255,255,255,0.35); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:0.5rem">{pk}</div>
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:{meta['color']}; line-height:1">{cpct}%</div>
               <div style="background:rgba(255,255,255,0.07); border-radius:99px; height:4px; margin-top:0.5rem; overflow:hidden">
-                <div style="height:100%; width:{completion_pct}%; background:{meta['color']}; border-radius:99px; transition:width 0.8s ease"></div>
-              </div>
-            </div>
-            """, unsafe_allow_html=True)
-
-
-# ══════════════════════════════════════════════════════════════════════════════
-# TAB 3 — MONTHLY
-# ══════════════════════════════════════════════════════════════════════════════
-with tab_monthly:
-    st.markdown('<div class="section-label">MONTHLY ANALYTICS</div>', unsafe_allow_html=True)
-
-    now = datetime.date.today()
-    month_start = now.replace(day=1)
-    days_in_month = (now.replace(month=now.month % 12 + 1, day=1) - datetime.timedelta(days=1)).day if now.month < 12 else 31
-    month_days = [month_start + datetime.timedelta(days=i) for i in range(days_in_month)]
-    month_entries = [history_map.get(d.isoformat()) for d in month_days if history_map.get(d.isoformat())]
-
-    col_m1, col_m2, col_m3 = st.columns(3, gap="large")
-
-    with col_m1:
-        m_avg = round(sum(e["score"] for e in month_entries) / len(month_entries), 1) if month_entries else 0
-        m_elite = sum(1 for e in month_entries if e["score"] >= 85)
-        m_solid = sum(1 for e in month_entries if 60 <= e["score"] < 85)
-        m_reset = sum(1 for e in month_entries if e["score"] < 60)
-        st.markdown(f"""
-        <div class="analytics-card">
-          <div class="analytics-card-title">MONTH OVERVIEW — {now.strftime('%B %Y').upper()}</div>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem">
-            <div>
-              <div class="stat-label">Days Logged</div>
-              <div style="font-family:'Bebas Neue',sans-serif; font-size:2.4rem; color:#f1f5f9; line-height:1">{len(month_entries)}</div>
-            </div>
-            <div>
-              <div class="stat-label">Month Average</div>
-              <div style="font-family:'Bebas Neue',sans-serif; font-size:2.4rem; color:#f9c74f; line-height:1">{int(m_avg)}</div>
-            </div>
-            <div>
-              <div class="stat-label">Elite Days</div>
-              <div style="font-family:'Bebas Neue',sans-serif; font-size:2.4rem; color:#4ade80; line-height:1">{m_elite}</div>
-            </div>
-            <div>
-              <div class="stat-label">Reset Days</div>
-              <div style="font-family:'Bebas Neue',sans-serif; font-size:2.4rem; color:#ef4444; line-height:1">{m_reset}</div>
-            </div>
-          </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with col_m2:
-        # Score distribution bars
-        st.markdown('<div class="analytics-card"><div class="analytics-card-title">SCORE DISTRIBUTION</div>', unsafe_allow_html=True)
-        bins = [(85, 100, "85–100", "#4ade80"), (60, 84, "60–84", "#f9c74f"), (0, 59, "0–59", "#ef4444")]
-        for lo, hi, lbl, color in bins:
-            count = sum(1 for e in month_entries if lo <= e["score"] <= hi)
-            pct = round((count / len(month_entries)) * 100) if month_entries else 0
-            st.markdown(f"""
-            <div style="margin-bottom:0.75rem">
-              <div style="display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:0.6rem; color:rgba(255,255,255,0.4); margin-bottom:0.3rem">
-                <span>{lbl}</span><span>{count} days</span>
-              </div>
-              <div style="background:rgba(255,255,255,0.07); border-radius:99px; height:6px; overflow:hidden">
-                <div style="height:100%; width:{pct}%; background:{color}; border-radius:99px; transition:width 0.8s ease"></div>
+                <div style="height:100%; width:{cpct}%; background:{meta['color']}; border-radius:99px"></div>
               </div>
             </div>""", unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    with col_m3:
-        # Best streak this month
-        month_date_set = {e["date"] for e in month_entries}
-        best_month_streak = 0
-        curr_run = 0
-        for d in month_days:
-            if d.isoformat() in month_date_set:
-                curr_run += 1
-                best_month_streak = max(best_month_streak, curr_run)
-            else:
-                curr_run = 0
-
-        completion_rate = round((len(month_entries) / now.day) * 100) if now.day > 0 else 0
-        st.markdown(f"""
-        <div class="analytics-card">
-          <div class="analytics-card-title">CONSISTENCY METRICS</div>
-          <div style="margin-bottom:1.2rem">
-            <div class="stat-label">Completion Rate</div>
-            <div style="font-family:'Bebas Neue',sans-serif; font-size:2.6rem; color:#f8961e; line-height:1">{completion_rate}%</div>
-            <div style="background:rgba(255,255,255,0.07); border-radius:99px; height:5px; margin-top:0.4rem; overflow:hidden">
-              <div style="height:100%; width:{completion_rate}%; background:#f8961e; border-radius:99px"></div>
-            </div>
-          </div>
-          <div>
-            <div class="stat-label">Best Streak This Month</div>
-            <div style="font-family:'Bebas Neue',sans-serif; font-size:2.6rem; color:#c084fc; line-height:1">{best_month_streak} <span style="font-size:1rem; color:rgba(255,255,255,0.3)">DAYS</span></div>
-          </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    # Monthly calendar heatmap
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown('<div class="section-label">CALENDAR HEATMAP</div>', unsafe_allow_html=True)
-
-    cal_html = '<div style="display:flex; flex-wrap:wrap; gap:6px; padding:1.25rem; background:#1e293b; border-radius:12px; border:1px solid rgba(255,255,255,0.07)">'
-    for d in month_days:
-        entry = history_map.get(d.isoformat())
-        if entry:
-            sc = entry["score"]
-            opacity = 0.3 + (sc / 100) * 0.7
-            color = "#4ade80" if sc >= 85 else ("#f9c74f" if sc >= 60 else "#ef4444")
-            bg = color
-            opacity_style = f"opacity:{opacity}"
-            title = f"{d.strftime('%d %b')}: {sc}"
-        else:
-            bg = "rgba(255,255,255,0.06)"
-            opacity_style = ""
-            title = d.strftime('%d %b')
-
-        is_today = "border:2px solid #f9c74f;" if d == now else ""
-        cal_html += f'<div title="{title}" style="width:32px; height:32px; border-radius:6px; background:{bg}; {is_today} {opacity_style}; display:flex; align-items:center; justify-content:center; font-family:JetBrains Mono,monospace; font-size:0.55rem; color:rgba(255,255,255,0.5);">{d.day}</div>'
-
-    cal_html += "</div>"
-    st.markdown(cal_html, unsafe_allow_html=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 4 — HABIT MAP
+# TAB 5 — HABIT MAP
 # ══════════════════════════════════════════════════════════════════════════════
 with tab_habits:
     st.markdown('<div class="section-label">HABIT CONSISTENCY MAP — LAST 30 DAYS</div>', unsafe_allow_html=True)
 
-    last_30 = [datetime.date.today() - datetime.timedelta(days=i) for i in range(29, -1, -1)]
-    history_map_30 = {e["date"]: e for e in data["history"]}
+    last_30 = [today - datetime.timedelta(days=i) for i in range(29, -1, -1)]
 
-    # Build per-task habit grid
     st.markdown('<div style="background:#1e293b; border-radius:14px; padding:1.5rem; border:1px solid rgba(255,255,255,0.07)">', unsafe_allow_html=True)
-
-    for pillar_key, meta in PILLAR_META.items():
-        tasks_p = all_tasks[pillar_key]
-        for t in tasks_p:
-            tk = get_task_key(pillar_key, t)
-            cells_html = '<div class="habit-cells">'
+    for pk, meta in PILLAR_META.items():
+        for t in all_tasks[pk]:
+            tk         = get_task_key(pk, t)
+            cells_html = '<div style="display:flex; gap:3px; flex-wrap:wrap;">'
             done_count = 0
             for d in last_30:
-                entry = history_map_30.get(d.isoformat())
+                entry = history_map.get(d.isoformat())
                 if entry:
                     done = entry.get("tasks", {}).get(tk, False)
                     cls  = "habit-done" if done else "habit-miss"
-                    if done:
-                        done_count += 1
+                    if done: done_count += 1
                 else:
                     cls = "habit-na"
                 cells_html += f'<div class="habit-cell {cls}" title="{d.strftime("%d %b")}"></div>'
             cells_html += "</div>"
 
             pct = round((done_count / 30) * 100)
-            pct_color = meta["color"]
-
             st.markdown(f"""
             <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.6rem; padding:0.5rem 0; border-bottom:1px solid rgba(255,255,255,0.04)">
-              <div style="width:150px; flex-shrink:0">
-                <div style="font-family:'JetBrains Mono',monospace; font-size:0.58rem; color:{pct_color}; letter-spacing:0.1em; text-transform:uppercase">{pillar_key.upper()}</div>
+              <div style="width:170px; flex-shrink:0">
+                <div style="font-family:'JetBrains Mono',monospace; font-size:0.55rem; color:{meta['color']}; letter-spacing:0.1em; text-transform:uppercase">{pk.upper()}</div>
                 <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:0.78rem; color:rgba(255,255,255,0.7); font-weight:500; margin-top:1px">{t['name']}</div>
               </div>
               {cells_html}
-              <div style="font-family:'Bebas Neue',sans-serif; font-size:1.2rem; color:{pct_color}; margin-left:0.5rem; min-width:40px">{pct}%</div>
-            </div>
-            """, unsafe_allow_html=True)
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:1.2rem; color:{meta['color']}; margin-left:0.5rem; min-width:42px">{pct}%</div>
+            </div>""", unsafe_allow_html=True)
 
     st.markdown("</div>", unsafe_allow_html=True)
-
-    st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("""
-    <div style="display:flex; align-items:center; gap:1.5rem; font-family:'JetBrains Mono',monospace; font-size:0.6rem; color:rgba(255,255,255,0.3); letter-spacing:0.12em">
+    <div style="display:flex; gap:1.5rem; margin-top:1rem; font-family:'JetBrains Mono',monospace; font-size:0.6rem; color:rgba(255,255,255,0.3); letter-spacing:0.12em">
       <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:#f8961e;vertical-align:middle;margin-right:5px"></span>COMPLETED</span>
       <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:rgba(255,255,255,0.07);vertical-align:middle;margin-right:5px"></span>MISSED</span>
       <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;border:1px dashed rgba(255,255,255,0.15);vertical-align:middle;margin-right:5px"></span>NOT LOGGED</span>
-    </div>
-    """, unsafe_allow_html=True)
+    </div>""", unsafe_allow_html=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 5 — HISTORY
+# TAB 6 — HISTORY
 # ══════════════════════════════════════════════════════════════════════════════
 with tab_history:
     st.markdown('<div class="section-label">MISSION LOG — SESSION HISTORY</div>', unsafe_allow_html=True)
 
     if data["history"]:
-        history_df = pd.DataFrame([
-            {
-                "Date":       e["date"],
-                "Score":      e["score"],
-                "Rating":     "⚡ ELITE" if e["score"] >= 85 else ("✓ SOLID" if e["score"] >= 60 else "↺ RESET"),
-                "Tasks Done": sum(1 for v in e.get("tasks", {}).values() if v),
-                "Reflection": (e["reflection"][:90] + "…") if len(e.get("reflection", "")) > 90 else e.get("reflection", ""),
-            }
-            for e in sorted(data["history"], key=lambda x: x["date"], reverse=True)
-        ])
+        df = pd.DataFrame([{
+            "Date":       e["date"],
+            "Score":      e["score"],
+            "Rating":     "⚡ ELITE" if e["score"] >= 85 else ("✓ SOLID" if e["score"] >= 60 else "↺ RESET"),
+            "Tasks Done": sum(1 for v in e.get("tasks", {}).values() if v),
+            "Reflection": (e["reflection"][:90] + "…") if len(e.get("reflection", "")) > 90 else e.get("reflection", ""),
+        } for e in sorted(data["history"], key=lambda x: x["date"], reverse=True)])
 
         st.dataframe(
-            history_df,
+            df,
             use_container_width=True,
             hide_index=True,
-            column_config={
-                "Score": st.column_config.ProgressColumn(
-                    "Score", min_value=0, max_value=100, format="%d"
-                ),
-            }
+            column_config={"Score": st.column_config.ProgressColumn("Score", min_value=0, max_value=100, format="%d")},
         )
 
-        col_exp, col_clear = st.columns([1, 1])
-        with col_clear:
-            if st.button("↺  CLEAR ALL HISTORY"):
-                data["history"]    = []
-                data["streak"]     = 0
-                data["best_score"] = 0
-                data["total_days"] = 0
-                save_data(data)
-                st.session_state.data = data
-                st.session_state.saved_today = False
-                st.rerun()
+        if st.button("↺  CLEAR ALL HISTORY"):
+            data.update({"history": [], "streak": 0, "best_score": 0, "total_days": 0})
+            save_data(data)
+            st.session_state.data = data
+            st.session_state.saved_today = False
+            st.rerun()
     else:
         st.markdown("""
         <div style="text-align:center; padding:4rem 2rem; color:rgba(255,255,255,0.2);
                     font-family:'JetBrains Mono',monospace; font-size:0.75rem; letter-spacing:0.2em">
           NO SESSIONS LOGGED YET — COMMIT YOUR FIRST DAY TO BEGIN
-        </div>
-        """, unsafe_allow_html=True)
+        </div>""", unsafe_allow_html=True)
 
 
 # ── FOOTER ─────────────────────────────────────────────────────────────────────
@@ -1213,8 +1481,8 @@ st.markdown(f"""
             display:flex; justify-content:space-between; align-items:center;
             font-family:'JetBrains Mono',monospace; font-size:0.58rem;
             letter-spacing:0.2em; color:rgba(255,255,255,0.18); text-transform:uppercase;">
-  <span>THE LONG GAME — LIFE OS · FOUNDER EDITION</span>
+  <span>THE LONG GAME — LIFE OS · BCOM FINANCE + FOUNDER STACK</span>
   <span>BUILD · REFLECT · EVOLVE</span>
-  <span>V4.0 · {today_str}</span>
+  <span>V5.0 · {today_str}</span>
 </div>
 """, unsafe_allow_html=True)
